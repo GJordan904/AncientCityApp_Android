@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ancient City App</string>
+    <string name="title_activity_places">Places</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- List Item Text -->
+    <string name="list_text_rest">Restaurants</string>
+    <string name="list_text_bar">Bars</string>
+    <string name="list_text_lodging">Lodging</string>
+    <string name="list_text_attractions">Attractions</string>
+    <string name="list_text_map">Map</string>
+    <string name="list_text_events">Events</string>
+    <string name="list_text_parking">Parking</string>
+    <string name="list_text_weather">Weather</string>
+    <!-- Intent Keys -->
+    <string name="key_term">key_term</string>
+    <!-- Content Descriptions -->
+    <string name="cd_place_image">Place Image</string>
+    <!-- Place Holders -->
+    <string name="ph_place_name">Name</string>
+    <string name="ph_place_phone">Phone Number</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

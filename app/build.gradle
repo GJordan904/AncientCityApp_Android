@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.2.3'
+    }
+}
+apply plugin: 'com.android.application'
+
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+android {
+    signingConfigs {
+    }
+    compileSdkVersion 24
+    buildToolsVersion "24.0.3"
+    defaultConfig {
+        multiDexEnabled true
+        applicationId "com.codebyjordan.ancientcityapp"
+        minSdkVersion 16
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:cardview-v7:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'com.googlecode.json-simple:json-simple:1.1'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'se.akerfeldt:okhttp-signpost:1.1.0'
+    compile 'oauth.signpost:signpost-core:1.2.1.2'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.google.android.gms:play-services-places:9.6.1'
+    compile "com.google.android.gms:play-services-maps:9.6.1"
+}

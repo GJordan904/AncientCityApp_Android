@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "623797295574",
+    "project_id": "x-summit-124302"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623797295574:android:cf7731a50297602a",
+        "android_client_info": {
+          "package_name": "com.codebyjordan.ancientcityapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9plAbE6iIdxj21zIpdtv40HYfqv6eAIY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-85942935-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

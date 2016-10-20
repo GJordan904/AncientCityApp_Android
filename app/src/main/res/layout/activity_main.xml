@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                tools:context="${relativePackage}.${activityClass}">
+
+    <include
+        layout="@layout/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbarMain"/>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView"
+            android:layout_below="@+id/toolbarMain"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:padding="10dp"
+            android:background="@color/my_earth">
+
+        <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/mainChoices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp"
+                card_view:contentPadding="10dp"
+                card_view:cardElevation="4dp"
+                card_view:cardBackgroundColor="@color/my_brown">
+
+            <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/choicesTable"
+                    >
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/rowRestaurants"
+                        android:layout_marginBottom="10dp">
+
+                    <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:id="@+id/iconRestaurant"
+                            android:cropToPadding="false"
+                            android:src="@drawable/item_icon_restaurants"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/list_text_rest"
+                            android:id="@+id/textRestaurant"
+                            android:layout_gravity="center_vertical"/>
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/rowBars"
+                        android:layout_marginBottom="10dp">
+
+                    <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:id="@+id/iconBars"
+                            android:cropToPadding="false"
+                            android:src="@drawable/item_icon_bars"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/list_text_bar"
+                            android:id="@+id/textBars"
+                            android:layout_gravity="center_vertical"/>
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/rowLodging"
+                        android:layout_marginBottom="10dp">
+
+                    <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:id="@+id/iconLodging"
+                            android:cropToPadding="false"
+                            android:src="@drawable/item_icon_lodging"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/list_text_lodging"
+                            android:id="@+id/textLodging"
+                            android:layout_gravity="center_vertical"/>
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/rowAttractions"
+                        android:layout_marginBottom="10dp">
+
+                    <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:id="@+id/iconAttractions"
+                            android:cropToPadding="false"
+                            android:src="@drawable/item_icon_attractions"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/list_text_attractions"
+                            android:id="@+id/textAttractions"
+                            android:layout_gravity="center_vertical"/>
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/rowParking"
+                        android:layout_marginBottom="10dp">
+
+                    <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:id="@+id/iconParking"
+                            android:cropToPadding="false"
+                            android:src="@drawable/item_icon_parking"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/list_text_parking"
+                            android:id="@+id/textParking"
+                            android:layout_gravity="center_vertical"/>
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/rowEvents"
+                        android:layout_marginBottom="10dp">
+
+                    <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:id="@+id/iconEvents"
+                            android:cropToPadding="false"
+                            android:src="@drawable/item_icon_events"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/list_text_events"
+                            android:id="@+id/textEvents"
+                            android:layout_gravity="center_vertical"/>
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/rowWeather"
+                        android:layout_marginBottom="10dp">
+
+                    <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:id="@+id/iconWeather"
+                            android:cropToPadding="false"
+                            android:src="@drawable/item_icon_weather"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/list_text_weather"
+                            android:id="@+id/textWeather"
+                            android:layout_gravity="center_vertical"/>
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/rowMap"
+                        >
+
+                    <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:id="@+id/iconMap"
+                            android:cropToPadding="false"
+                            android:src="@drawable/item_icon_map"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/list_text_map"
+                            android:id="@+id/textMap"
+                            android:layout_gravity="center_vertical"/>
+                </TableRow>
+
+            </TableLayout>
+
+        </android.support.v7.widget.CardView>
+    </ScrollView>
+
+</RelativeLayout>
