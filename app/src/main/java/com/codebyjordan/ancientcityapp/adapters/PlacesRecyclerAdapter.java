@@ -1,12 +1,16 @@
 package com.codebyjordan.ancientcityapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.net.Uri;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.util.Log;
+import android.view.*;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.codebyjordan.ancientcityapp.custviews.DynamicHeightImageView;
 import com.codebyjordan.ancientcityapp.picasso.FitToViewTransformation;
@@ -30,22 +34,36 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
 
     @Override
     public PlacesView onCreateViewHolder(ViewGroup parent, int i) {
-        final View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cardview_places, parent, false);
+        // Check whether on phone or tablet and if landscape or portrait and load correct view
+        View view;
+        boolean isPhone = mContext.getResources().getBoolean(R.bool.is_phone);
+        boolean isLandscape = mContext.getResources().getBoolean(R.bool.is_landscape);
+        if(isPhone && !isLandscape) {
+            view = LayoutInflater.from(mContext).inflate(R.layout.cardview_places_phone, parent, false);
+        }else {
+            view = LayoutInflater.from(mContext).inflate(R.layout.cardview_places, parent, false);
+        }
 
-        mFitToView = new FitToViewTransformation(view);
+        mFitToView = new FitToViewTransformation((ImageView) view.findViewById(R.id.placeImage));
 
         return new PlacesView(view);
     }
 
     @Override
-    public void onBindViewHolder(PlacesView placesView, int i) {
+    public void onBindViewHolder(PlacesView placesView, final int i) {
 
         // Setup details variables
         Business place = mPlaces.get(i);
         String name = place.getName();
-        String phone = place.getPhone();
+        final String phone = place.getPhone();
         String photo = place.getImage_url();
+        String address = place.getLocation().getAddress()[0];
+        String open;
+        if(place.is_closed()){
+            open = "Closed";
+        }else{
+            open = "Open";
+        }
 
         Picasso.with(mContext)
                 .load(photo)
@@ -54,6 +72,15 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
 
         placesView.nameText.setText(name);
         placesView.phoneText.setText(phone);
+        placesView.addressText.setText(address);
+        placesView.hoursText.setText(open);
+
+        placesView.menuDots.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopup(v, phone);
+            }
+        });
     }
 
     @Override
@@ -63,14 +90,20 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
 
     public class PlacesView extends RecyclerView.ViewHolder implements Target {
         DynamicHeightImageView placeImage;
+        ImageView menuDots;
         TextView nameText;
         TextView phoneText;
+        TextView hoursText;
+        TextView addressText;
 
         public PlacesView(View itemView) {
             super(itemView);
             placeImage = (DynamicHeightImageView) itemView.findViewById(R.id.placeImage);
+            menuDots = (ImageView) itemView.findViewById(R.id.menuDots);
             nameText = (TextView) itemView.findViewById(R.id.nameText);
             phoneText = (TextView) itemView.findViewById(R.id.phoneText);
+            hoursText = (TextView) itemView.findViewById(R.id.hoursText);
+            addressText = (TextView) itemView.findViewById(R.id.addressText);
         }
 
         @Override
@@ -89,5 +122,31 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
         public void onPrepareLoad(Drawable placeHolderDrawable) {
 
         }
+    }
+
+    private void showPopup(final View view, final String phone) {
+        View menuItemView = view.findViewById(R.id.menuDots);
+        PopupMenu popup = new PopupMenu(mContext, menuItemView);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_places, popup.getMenu());
+        Log.v("Inside showPopup()", menuItemView.toString());
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch(item.getItemId()) {
+                    case R.id.action_map:
+
+                        break;
+                    case R.id.action_call:
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse("tel:" + phone));
+                        mContext.startActivity(intent);
+                        break;
+                }
+                return false;
+            }
+        });
+        popup.show();
     }
 }

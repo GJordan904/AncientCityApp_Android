@@ -45,7 +45,21 @@ public class PlacesFragment extends Fragment {
 
         // Setup Recycler View
         RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.placesRecycler);
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+
+        // Check if on phone or tablet and if landscape or portrait to setup the right LayoutManager
+        boolean isPhone = getResources().getBoolean(R.bool.is_phone);
+        boolean isLandscape = getResources().getBoolean(R.bool.is_landscape);
+
+        if(isPhone && !isLandscape){
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+        }else if(isPhone && isLandscape){
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        }else if(!isPhone && !isLandscape) {
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        }else if(!isPhone && isLandscape){
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
+        }
+
         // Set custom decoration for margins
         MarginItemDecoration decoration = new MarginItemDecoration(10);
         mRecyclerView.addItemDecoration(decoration);

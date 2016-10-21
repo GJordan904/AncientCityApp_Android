@@ -3,9 +3,11 @@ package com.codebyjordan.ancientcityapp.ui;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TableRow;
 import com.codebyjordan.ancientcityapp.R;
 import com.codebyjordan.ancientcityapp.listeners.PlacesListOnClick;
+import com.codebyjordan.ancientcityapp.listeners.StartActivityOnClick;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,11 +31,10 @@ public class MainActivity extends AppCompatActivity {
         TableRow events = (TableRow) findViewById(R.id.rowEvents);
         TableRow weather = (TableRow) findViewById(R.id.rowWeather);
         TableRow map = (TableRow) findViewById(R.id.rowMap);
-
-        // Attach click listeners to list items that redirect to PlacesFragment Activities
+        // Attach click listeners
         restaurants.setOnClickListener(new PlacesListOnClick(MainActivity.this, FoodDrinkActivity.class, 0));
         lodging.setOnClickListener(new PlacesListOnClick(MainActivity.this, LodgingActivity.class, 1));
 
-        // End Main Activity List Setup
+        parking.setOnClickListener(new StartActivityOnClick(MainActivity.this, MapsActivity.class));
     }
 }

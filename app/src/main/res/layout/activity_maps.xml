@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.codebyjordan.ancientcityapp.ui.PlacesFragment">
+    <include
+            layout="@layout/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbarMain"/>
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/map"
+              tools:context="com.codebyjordan.ancientcityapp.ui.MapsActivity"
+              class="com.google.android.gms.maps.SupportMapFragment"
+              android:name="com.codebyjordan.ancientcityapp.ui.PlacesFragment"/>
+
+</RelativeLayout>

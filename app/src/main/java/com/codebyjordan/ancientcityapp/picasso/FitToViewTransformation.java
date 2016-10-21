@@ -3,13 +3,14 @@ package com.codebyjordan.ancientcityapp.picasso;
 import android.graphics.Bitmap;
 import android.view.View;
 
+import android.widget.ImageView;
 import com.squareup.picasso.Transformation;
 
 
 public class FitToViewTransformation implements Transformation {
-    private View view;
+    private ImageView view;
 
-    public FitToViewTransformation(View view) {
+    public FitToViewTransformation(ImageView view) {
         this.view = view;
     }
 
@@ -17,8 +18,9 @@ public class FitToViewTransformation implements Transformation {
     public Bitmap transform(Bitmap source) {
         int targetWidth = view.getWidth();
 
-        double aspectRatio = (double) source.getWidth() / (double) source.getHeight();
+        double aspectRatio = (double) source.getHeight() / (double) source.getWidth();
         int targetHeight = (int) (targetWidth * aspectRatio);
+
 
         Bitmap result = Bitmap.createScaledBitmap(source, targetWidth, targetHeight, false);
         if (result != source) {
