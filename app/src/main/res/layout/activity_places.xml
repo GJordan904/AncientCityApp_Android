@@ -1,19 +1,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.codebyjordan.ancientcityapp.ui.PlacesActivity">
-
+                tools:context="com.codebyjordan.ancientcityapp.ui.PlacesFragment">
     <include
             layout="@layout/toolbar_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbarMain"/>
 
-    <android.support.v7.widget.RecyclerView
+    <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbarMain"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            app:tabMode="scrollable"
+            android:background="@color/primary"
+            android:elevation="4dp"/>
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/placesPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/gridView"
-            android:layout_below="@+id/toolbarMain"/>
+            android:layout_below="@+id/tabLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
 
 </RelativeLayout>

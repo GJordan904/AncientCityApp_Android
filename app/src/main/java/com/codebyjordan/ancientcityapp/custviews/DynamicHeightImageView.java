@@ -1,4 +1,4 @@
-package com.codebyjordan.ancientcityapp;
+package com.codebyjordan.ancientcityapp.custviews;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -1,26 +1,20 @@
 package com.codebyjordan.ancientcityapp.ui;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import com.codebyjordan.ancientcityapp.MarginItemDecoration;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import com.codebyjordan.ancientcityapp.decorators.MarginItemDecoration;
 import com.codebyjordan.ancientcityapp.R;
-import com.codebyjordan.ancientcityapp.adapters.PlacesAdapter;
+import com.codebyjordan.ancientcityapp.adapters.PlacesRecyclerAdapter;
 import com.codebyjordan.ancientcityapp.yelp.YelpApi;
 import com.codebyjordan.ancientcityapp.yelp.models.Business;
 import com.codebyjordan.ancientcityapp.yelp.models.SearchResponse;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.places.PlacePhotoMetadata;
-import com.google.android.gms.location.places.PlacePhotoMetadataResult;
-import com.google.android.gms.location.places.Places;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -29,46 +23,54 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlacesActivity extends AppCompatActivity {
+public class PlacesFragment extends Fragment {
 
-    private RecyclerView mRecyclerView;
-    private PlacesAdapter mAdapter;
+    private static final String TAG = "PlacesFragment";
+
+    private PlacesRecyclerAdapter mAdapter;
+    private ProgressBar mProgressBar;
     private List<Business> mGridItems = new ArrayList<>();
-    private String mSearchTerm;
 
-    public static final String TAG = PlacesActivity.class.getSimpleName();
+    public static final String ARG_OBJECT = "object";
+    public static final String ARG_TERM = "term";
+    public static final String ARG_FILTERS = "filters";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_places);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_places, container, false);
+        view.setTag(TAG);
 
-        // Get Data passed from Main Activity and lookup Yelp Data
-        Intent intent = getIntent();
-        mSearchTerm = intent.getStringExtra(getString(R.string.key_term));
-        lookupPlaces();
+        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
-        // Create Toolbar and set as action bar
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarMain);
-        setSupportActionBar(myToolbar);
-        // Get support ActionBar and set up button
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-
-        // Setup Grid View
-        mRecyclerView = (RecyclerView) findViewById(R.id.gridView);
+        // Setup Recycler View
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.placesRecycler);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         // Set custom decoration for margins
-        MarginItemDecoration decoration = new MarginItemDecoration(20);
+        MarginItemDecoration decoration = new MarginItemDecoration(10);
         mRecyclerView.addItemDecoration(decoration);
-        // Set adapter on view
-        mAdapter = new PlacesAdapter(this, mGridItems);
+        // Set adapter
+        mAdapter = new PlacesRecyclerAdapter(view.getContext(), mGridItems);
         mRecyclerView.setAdapter(mAdapter);
+
+        return view;
     }
 
-    private void lookupPlaces() {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle args = getArguments();
+        int index = args.getInt(ARG_OBJECT);
+        String term = args.getString(ARG_TERM);
+        String[] filters = args.getStringArray(ARG_FILTERS);
+
+        lookupPlaces(index, term, filters);
+    }
+
+    private void lookupPlaces(int index, String term, String[] filters) {
         // Call google
-        YelpApi api = new YelpApi(mSearchTerm, "Saint+Augustine");
+        YelpApi api = new YelpApi(term, "Saint+Augustine", index, filters);
         api.searchArea(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -83,10 +85,11 @@ public class PlacesActivity extends AppCompatActivity {
                                 .getBusinesses();
                         for(Business result:resultList) mGridItems.add(result);
 
-                        runOnUiThread(new Runnable() {
+                        getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 mAdapter.notifyDataSetChanged();
+                                mProgressBar.setVisibility(View.GONE);
                             }
                         });
                     } else {

@@ -1,4 +1,4 @@
-package com.codebyjordan.ancientcityapp;
+package com.codebyjordan.ancientcityapp.picasso;
 
 import android.graphics.Bitmap;
 import android.view.View;
@@ -17,7 +17,7 @@ public class FitToViewTransformation implements Transformation {
     public Bitmap transform(Bitmap source) {
         int targetWidth = view.getWidth();
 
-        double aspectRatio = (double) source.getHeight() / (double) source.getWidth();
+        double aspectRatio = (double) source.getWidth() / (double) source.getHeight();
         int targetHeight = (int) (targetWidth * aspectRatio);
 
         Bitmap result = Bitmap.createScaledBitmap(source, targetWidth, targetHeight, false);

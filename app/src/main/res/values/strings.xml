@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- App and activity names -->
     <string name="app_name">Ancient City App</string>
     <string name="title_activity_places">Places</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_food_drink">Food and Drink</string>
 
     <!-- List Item Text -->
-    <string name="list_text_rest">Restaurants</string>
+    <string name="list_text_fb">Food &amp; Beverage</string>
     <string name="list_text_bar">Bars</string>
     <string name="list_text_lodging">Lodging</string>
     <string name="list_text_attractions">Attractions</string>
@@ -15,12 +18,14 @@
     <string name="list_text_weather">Weather</string>
     <!-- Intent Keys -->
     <string name="key_term">key_term</string>
+    <string name="key_filters">key_filters</string>
     <!-- Content Descriptions -->
     <string name="cd_place_image">Place Image</string>
     <!-- Place Holders -->
     <string name="ph_place_name">Name</string>
     <string name="ph_place_phone">Phone Number</string>
+    <string name="title_activity_lodging">Lodging</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.codebyjordan.ancientcityapp;
+package com.codebyjordan.ancientcityapp.decorators;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

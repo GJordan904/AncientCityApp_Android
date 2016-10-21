@@ -11,14 +11,19 @@ public class YelpApi {
     private final String SEARCH_PATH = "v2/search";
     private final String BUSINESS_PATH = "v2/business/";
 
+
     private OkHttpClient mClient;
     private String mSearchTerm;
     private String mSearchLocation;
     private String mSearchId;
+    private String[] mFilters;
+    private int mFilterIndex;
 
-    public YelpApi(String searchTerm, String searchLocation){
+    public YelpApi(String searchTerm, String searchLocation, int index, String[] filters){
         mSearchTerm = searchTerm;
         mSearchLocation = searchLocation;
+        mFilterIndex = index;
+        mFilters = filters;
     }
 
     public YelpApi(String id) {
@@ -34,6 +39,7 @@ public class YelpApi {
                 .host(API_HOST)
                 .addPathSegments(SEARCH_PATH)
                 .addQueryParameter("term", mSearchTerm)
+                .addQueryParameter("category_filter", mFilters[mFilterIndex])
                 .addQueryParameter("location", mSearchLocation)
                 .addQueryParameter("radius_filter", "8000")
                 .build();
@@ -80,5 +86,4 @@ public class YelpApi {
                 .addInterceptor(new SigningInterceptor(consumer))
                 .build();
     }
-
 }

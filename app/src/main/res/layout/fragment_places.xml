@@ -1,7 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/placesRecycler"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</RecyclerView>
+    <android.support.v7.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/placesRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/my_earth"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+    <ProgressBar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="visible"
+            android:indeterminate="true"/>
+
+</RelativeLayout>
+
+
+

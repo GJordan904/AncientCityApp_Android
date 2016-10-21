@@ -4,15 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 import android.widget.TextView;
-import com.codebyjordan.ancientcityapp.DynamicHeightImageView;
-import com.codebyjordan.ancientcityapp.FitToViewTransformation;
+import com.codebyjordan.ancientcityapp.custviews.DynamicHeightImageView;
+import com.codebyjordan.ancientcityapp.picasso.FitToViewTransformation;
 import com.codebyjordan.ancientcityapp.R;
 import com.codebyjordan.ancientcityapp.yelp.models.Business;
 import com.squareup.picasso.Picasso;
@@ -20,13 +17,13 @@ import com.squareup.picasso.Target;
 
 import java.util.List;
 
-public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlacesView> {
+public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAdapter.PlacesView> {
 
     private Context mContext;
     private List<Business> mPlaces;
     private FitToViewTransformation mFitToView;
 
-    public PlacesAdapter(Context context, List<Business> places) {
+    public PlacesRecyclerAdapter(Context context, List<Business> places) {
         mContext = context;
         mPlaces = places;
     }
@@ -34,7 +31,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlacesView
     @Override
     public PlacesView onCreateViewHolder(ViewGroup parent, int i) {
         final View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.gridview_places, parent, false);
+                .inflate(R.layout.cardview_places, parent, false);
 
         mFitToView = new FitToViewTransformation(view);
 
