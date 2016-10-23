@@ -3,7 +3,6 @@ package com.codebyjordan.ancientcityapp.ui;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TableRow;
 import com.codebyjordan.ancientcityapp.R;
 import com.codebyjordan.ancientcityapp.listeners.PlacesListOnClick;
@@ -35,6 +34,6 @@ public class MainActivity extends AppCompatActivity {
         restaurants.setOnClickListener(new PlacesListOnClick(MainActivity.this, FoodDrinkActivity.class, 0));
         lodging.setOnClickListener(new PlacesListOnClick(MainActivity.this, LodgingActivity.class, 1));
 
-        parking.setOnClickListener(new StartActivityOnClick(MainActivity.this, MapsActivity.class));
+        parking.setOnClickListener(new StartActivityOnClick(MainActivity.this, ParkingActivity.class));
     }
 }

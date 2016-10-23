@@ -129,7 +129,6 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
         PopupMenu popup = new PopupMenu(mContext, menuItemView);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_places, popup.getMenu());
-        Log.v("Inside showPopup()", menuItemView.toString());
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
