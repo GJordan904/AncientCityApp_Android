@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- App and activity names -->
+    <!-- App and activity titles -->
     <string name="app_name">Ancient City App</string>
     <string name="title_activity_places">Places</string>
     <string name="title_activity_food_drink">Food and Drink</string>
     <string name="title_activity_lodging">Lodging</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_map">Map</string>
+    <string name="title_activity_parking">Parking Map</string>
+    <string name="dialog_parking_title">Types of Parking</string>
 
     <!-- List Item Text -->
     <string name="list_text_fb">Food &amp; Beverage</string>
@@ -37,5 +39,10 @@
 
     <!-- Permission Rationales -->
     <string name="permissions_location_rationale">Please consider allowing permission to your location to fully experience the app.</string>
+
+    <!-- Checkboxes -->
+    <string name="checkbox_street_parking">Street Parking</string>
+    <string name="checkbox_parking_lots">Parking Lots</string>
+    <string name="checkbox_free_after_five">Free After 5</string>
 
 </resources>

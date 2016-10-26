@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/placeImage"
                 android:contentDescription="@string/cd_place_image"
-                android:layout_centerVertical="true"
+                android:layout_alignTop="@+id/horizontalRule"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"/>
 
@@ -39,32 +39,29 @@
                 android:text="@string/ph_place_name"
                 android:id="@+id/nameText"
                 android:textSize="18sp"
-                android:layout_alignParentStart="false"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/placeImage"
-                android:layout_below="@+id/menuDots"/>
+                android:layout_alignBottom="@+id/menuDots"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"/>
 
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:id="@+id/horizontalRule"
                 android:background="@color/accent"
-                android:layout_marginBottom="10dp"
                 android:layout_below="@+id/nameText"
-                android:layout_toRightOf="@+id/placeImage"/>
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
 
         <TableLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tableLayout"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:layout_below="@+id/horizontalRule"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignLeft="@+id/nameText"
-                android:layout_alignStart="@+id/nameText">
+                android:layout_toRightOf="@+id/placeImage"
+                android:padding="10dp">
 
             <TableRow android:id="@+id/rowPhone"
                       android:layout_width="match_parent"

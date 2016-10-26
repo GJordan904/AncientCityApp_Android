@@ -97,7 +97,9 @@ public class PlacesFragment extends Fragment {
                     if (response.isSuccessful()) {
                         List<Business> resultList = SearchResponse.parseJson(response.body().string())
                                 .getBusinesses();
-                        for(Business result:resultList) mGridItems.add(result);
+                        for(Business result:resultList) {
+                            mGridItems.add(result);
+                        }
 
                         getActivity().runOnUiThread(new Runnable() {
                             @Override

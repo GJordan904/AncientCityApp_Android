@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,7 +16,9 @@ import android.widget.TextView;
 import com.codebyjordan.ancientcityapp.custviews.DynamicHeightImageView;
 import com.codebyjordan.ancientcityapp.picasso.FitToViewTransformation;
 import com.codebyjordan.ancientcityapp.R;
+import com.codebyjordan.ancientcityapp.ui.MapActivity;
 import com.codebyjordan.ancientcityapp.yelp.models.Business;
+import com.codebyjordan.ancientcityapp.yelp.models.BusinessLocationCoords;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -53,11 +56,12 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
     public void onBindViewHolder(PlacesView placesView, final int i) {
 
         // Setup details variables
-        Business place = mPlaces.get(i);
+        final Business place = mPlaces.get(i);
         String name = place.getName();
         final String phone = place.getPhone();
         String photo = place.getImage_url();
         String address = place.getLocation().getAddress()[0];
+        final BusinessLocationCoords coords = place.getLocation().getCoordinate();
         String open;
         if(place.is_closed()){
             open = "Closed";
@@ -78,7 +82,31 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
         placesView.menuDots.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(v, phone);
+                View menuItemView = v.findViewById(R.id.menuDots);
+                PopupMenu popup = new PopupMenu(mContext, menuItemView);
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.menu_places, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch(item.getItemId()) {
+                            case R.id.action_map:
+                                Intent mapIntent = new Intent(mContext, MapActivity.class);
+                                mapIntent.putExtra("key_place", place);
+                                mapIntent.putExtra("key_coords", coords);
+                                mContext.startActivity(mapIntent);
+                                break;
+                            case R.id.action_call:
+                                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                                callIntent.setData(Uri.parse("tel:" + phone));
+                                mContext.startActivity(callIntent);
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popup.show();
             }
         });
     }
@@ -122,30 +150,5 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
         public void onPrepareLoad(Drawable placeHolderDrawable) {
 
         }
-    }
-
-    private void showPopup(final View view, final String phone) {
-        View menuItemView = view.findViewById(R.id.menuDots);
-        PopupMenu popup = new PopupMenu(mContext, menuItemView);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_places, popup.getMenu());
-
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch(item.getItemId()) {
-                    case R.id.action_map:
-
-                        break;
-                    case R.id.action_call:
-                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                        intent.setData(Uri.parse("tel:" + phone));
-                        mContext.startActivity(intent);
-                        break;
-                }
-                return false;
-            }
-        });
-        popup.show();
     }
 }

@@ -47,7 +47,7 @@ public class FoodDrinkActivity extends AppCompatActivity {
         mViewPager.setAdapter(mPlacesFragmentPager);
 
         // Setup Tabs
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.placesTabs);
         tabLayout.setupWithViewPager(mViewPager);
     }
 }

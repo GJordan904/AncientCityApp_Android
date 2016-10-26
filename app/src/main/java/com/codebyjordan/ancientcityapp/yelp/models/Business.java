@@ -1,6 +1,9 @@
 package com.codebyjordan.ancientcityapp.yelp.models;
 
-public class Business {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Business implements Parcelable {
     boolean is_claimed;
     double rating;
     String mobile_url;
@@ -19,6 +22,10 @@ public class Business {
     String id;
     boolean is_closed;
     BusinessLocation location;
+
+    public String getId() {
+        return id;
+    }
 
     public boolean is_claimed() {
         return is_claimed;
@@ -80,10 +87,6 @@ public class Business {
         return rating_img_url_large;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public boolean is_closed() {
         return is_closed;
     }
@@ -91,4 +94,34 @@ public class Business {
     public BusinessLocation getLocation() {
         return location;
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(id);
+    }
+
+    private Business(Parcel in) {
+        name = in.readString();
+        id = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Parcelable.Creator<Business> CREATOR
+            = new Parcelable.Creator<Business>() {
+
+        @Override
+        public Business createFromParcel(Parcel source) {
+            return new Business(source);
+        }
+
+        @Override
+        public Business[] newArray(int size) {
+            return new Business[size];
+        }
+    };
 }

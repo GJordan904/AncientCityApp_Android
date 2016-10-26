@@ -18,6 +18,30 @@
               android:id="@+id/map"
               tools:context="com.codebyjordan.ancientcityapp.ui.ParkingActivity"
               class="com.google.android.gms.maps.SupportMapFragment"
-              android:name="com.codebyjordan.ancientcityapp.ui.PlacesFragment"/>
+              android:name="com.codebyjordan.ancientcityapp.ui.PlacesFragment"
+              android:layout_below="@+id/toolbarMain"
+              android:layout_alignParentLeft="true"
+              android:layout_alignParentStart="true"/>
+
+    <FrameLayout
+            android:id="@+id/checkbox_placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbarMain"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
+    </FrameLayout>
+
+    <Button
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/parkingButton"
+            android:layout_alignBottom="@+id/map"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/item_icon_parking"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:elevation="4dp"/>
 
 </RelativeLayout>

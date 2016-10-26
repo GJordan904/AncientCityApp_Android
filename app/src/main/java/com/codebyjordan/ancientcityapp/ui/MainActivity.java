@@ -35,5 +35,6 @@ public class MainActivity extends AppCompatActivity {
         lodging.setOnClickListener(new PlacesListOnClick(MainActivity.this, LodgingActivity.class, 1));
 
         parking.setOnClickListener(new StartActivityOnClick(MainActivity.this, ParkingActivity.class));
+        map.setOnClickListener(new StartActivityOnClick(MainActivity.this, MapActivity.class));
     }
 }
