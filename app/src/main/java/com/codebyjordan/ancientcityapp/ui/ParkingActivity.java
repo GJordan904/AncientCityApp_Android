@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import com.codebyjordan.ancientcityapp.R;
+import com.codebyjordan.ancientcityapp.dialogs.ParkingDialog;
 import com.codebyjordan.ancientcityapp.maps.BaseMapActivity;
 import com.codebyjordan.ancientcityapp.maps.FindClosestParking;
 import com.codebyjordan.ancientcityapp.maps.MyKmlLayers;
@@ -51,7 +52,7 @@ public class ParkingActivity extends BaseMapActivity {
 
 
         // Create Dialog
-        final DialogFragment dialog = new ParkingDialog();
+        final DialogFragment dialog = new ParkingDialog(this, mMap, getApiClient(), mLayers);
 
         // Set Parking Button click handler and open parking dialog
         Button parkingButton = (Button) findViewById(R.id.parkingButton);
@@ -92,106 +93,5 @@ public class ParkingActivity extends BaseMapActivity {
     }
 
     // Inner Class for Dialog Fragment. I made it an inner class so it has access to the activities methods
-    public class ParkingDialog extends DialogFragment {
 
-        private static final String STREET_TAG = "CHECKBOX_STREET_SETTING";
-        private static final String LOTS_TAG = "CHECKBOX_LOT_SETTINGS";
-        private static final String FREE_TAG = "CHECKBOX_FREE_TAG";
-        private CheckBox mStreetCb;
-        private CheckBox mLotsCb;
-        private CheckBox mFreeCb;
-        private Button mOk;
-        private Button mClear;
-        private Button mClosest;
-
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View view = inflater.inflate(R.layout.dialog_parking_menu, null);
-            // Set Retain instance to keep reference to mLayers
-            setRetainInstance(true);
-
-            // Buttons
-            mOk = (Button )view.findViewById(R.id.parkingOkBtn);
-            mClear = (Button) view.findViewById(R.id.parkingClearBtn);
-            mClosest = (Button) view.findViewById(R.id.closestParking);
-
-            // CheckBoxes
-            mStreetCb = (CheckBox) view.findViewById(R.id.cbStreets);
-            mLotsCb = (CheckBox) view.findViewById(R.id.cbLots);
-            mFreeCb = (CheckBox) view.findViewById(R.id.cbFreeAfterFive);
-
-            // Set On cLick listeners
-            mOk.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Save checkbox states
-                    setCheckedSettings(mStreetCb.isChecked(), STREET_TAG);
-                    setCheckedSettings(mLotsCb.isChecked(), LOTS_TAG);
-                    setCheckedSettings(mFreeCb.isChecked(), FREE_TAG);
-                    // Close Dialog
-                    dismiss();
-                }
-            });
-
-            mClear.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Uncheck all boxes and save to preferences
-                    mStreetCb.setChecked(false);
-                    mLotsCb.setChecked(false);
-                    mFreeCb.setChecked(false);
-                    setCheckedSettings(mStreetCb.isChecked(), STREET_TAG);
-                    setCheckedSettings(mLotsCb.isChecked(), LOTS_TAG);
-                    setCheckedSettings(mFreeCb.isChecked(), FREE_TAG);
-                    // Clear Layers from map
-                    for(KmlLayer layer : mLayers.values()) layer.removeLayerFromMap();
-                    // Close Dialog
-                    dismiss();
-                }
-            });
-
-            mClosest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Get Last Location, send lat lng in intent to the Directions Service
-                    Log.v(TAG, Boolean.toString(isPermissionGranted()));
-                    Location lastKnown = getLastLocation();
-                    new FindClosestParking(ParkingActivity.this, mMap, lastKnown, mLayers).execute();
-
-                }
-            });
-
-            // Retrieve options state
-            mStreetCb.setChecked(isCheckSettingEnabled(STREET_TAG));
-            mLotsCb.setChecked(isCheckSettingEnabled(LOTS_TAG));
-            mFreeCb.setChecked(isCheckSettingEnabled(FREE_TAG));
-
-            builder.setView(view);
-            return builder.create();
-        }
-
-        @Override
-        public void onCancel(DialogInterface dialog) {
-            super.onCancel(dialog);
-            setCheckedSettings(mStreetCb.isChecked(), STREET_TAG);
-            setCheckedSettings(mLotsCb.isChecked(), LOTS_TAG);
-            setCheckedSettings(mFreeCb.isChecked(), FREE_TAG);
-        }
-
-        private void setCheckedSettings(boolean checked, String tag) {
-            PreferenceManager.getDefaultSharedPreferences(getActivity())
-                    .edit()
-                    .putBoolean(tag, checked)
-                    .apply();
-        }
-
-        private boolean isCheckSettingEnabled(String tag) {
-            return PreferenceManager.getDefaultSharedPreferences(getActivity())
-                    .getBoolean(tag, false);
-        }
-
-    }
 }
