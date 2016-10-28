@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>testing.kml</name>
+	<Style id="s_ylw-pushpin">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+	</Style>
+	<StyleMap id="m_ylw-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#s_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#s_ylw-pushpin_hl</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="s_ylw-pushpin_hl">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+	</Style>
+
+    <Placemark>
+        <name>Old Folks</name>
+        <description>55+ Community</description>
+        <styleUrl>#m_ylw-pushpin</styleUrl>
+        <Polygon>
+            <tessellate>1</tessellate>
+            <outerBoundaryIs>
+                <LinearRing>
+                    <coordinates>
+                        -81.32026240749002,29.78168422422398,0 -81.32083146933647,29.78137236724019,0 -81.3201644184804,29.78052783634653,0 -81.31959006262699,29.78079895428494,0 -81.32026240749002,29.78168422422398,0
+                    </coordinates>
+                </LinearRing>
+            </outerBoundaryIs>
+        </Polygon>
+    </Placemark>
+    <Placemark>
+        <name>Catholic Church</name>
+        <description>Church on Datil Pepper Rd and US1</description>
+        <styleUrl>#m_ylw-pushpin</styleUrl>
+        <Polygon>
+            <tessellate>1</tessellate>
+            <outerBoundaryIs>
+                <LinearRing>
+                    <coordinates>
+                        -81.31837415279396,29.77826273569378,0 -81.31839414109649,29.77776584631712,0 -81.31773860322143,29.77772981620986,0 -81.31769420141752,29.77824545072214,0 -81.31837415279396,29.77826273569378,0
+                    </coordinates>
+                </LinearRing>
+            </outerBoundaryIs>
+        </Polygon>
+    </Placemark>
+    <Placemark>
+        <name>Datil Pepper</name>
+        <description>Fake Street Parking</description>
+        <styleUrl>#m_ylw-pushpin</styleUrl>
+        <Polygon>
+            <tessellate>1</tessellate>
+            <outerBoundaryIs>
+                <LinearRing>
+                    <coordinates>
+                        -81.32339459391251,29.78082741323889,0 -81.32334027746833,29.78082809143676,0 -81.32338436084613,29.78109817536,0 -81.32342850155658,29.78109007997188,0 -81.32339459391251,29.78082741323889,0
+                    </coordinates>
+                </LinearRing>
+            </outerBoundaryIs>
+        </Polygon>
+    </Placemark>
+
+</Document>
+</kml>

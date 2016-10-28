@@ -21,6 +21,7 @@ public class MapActivity extends BaseMapActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Check intent for a place being passed from another activity
         Intent intent = getIntent();
         if(intent.getParcelableExtra("key_place") != null
                 && intent.getParcelableExtra("key_coords") != null) {
@@ -38,10 +39,10 @@ public class MapActivity extends BaseMapActivity {
         mMap = googleMap;
         mMarker = new MapMarkers(mMap);
 
+        // Make a marker if a place was passed in the intent
         if(mIntentCoords != null) {
             String tag = mPlace.getId();
             mMarker.make(mIntentCoords, tag);
         }
-
     }
 }

@@ -27,11 +27,12 @@ public class PermissionRequester {
         mLocationHandler = handler;
     }
 
-    public void setLocationPermission(GoogleMap gMap) {
+    public boolean setLocationPermission(GoogleMap gMap) {
 
         if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationHandler.responseMethod(gMap);
+            return true;
         } else {
             if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -48,6 +49,7 @@ public class PermissionRequester {
                 requestFineLocation();
             }
         }
+        return false;
     }
 
     private void requestFineLocation() {

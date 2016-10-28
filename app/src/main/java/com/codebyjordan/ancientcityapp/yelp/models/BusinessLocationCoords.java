@@ -15,15 +15,15 @@ public class BusinessLocationCoords implements Parcelable {
         return longitude;
     }
 
+    private BusinessLocationCoords(Parcel in) {
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
-    }
-
-    private BusinessLocationCoords(Parcel in) {
-        latitude = in.readDouble();
-        longitude = in.readDouble();
     }
 
     @Override

@@ -38,7 +38,7 @@
     <string name="action_call">Call</string>
 
     <!-- Permission Rationales -->
-    <string name="permissions_location_rationale">Please consider allowing permission to your location to fully experience the app.</string>
+    <string name="permissions_location_rationale">Please consider allowing permission to your lastKnown to fully experience the app.</string>
 
     <!-- Checkboxes -->
     <string name="checkbox_street_parking">Street Parking</string>
