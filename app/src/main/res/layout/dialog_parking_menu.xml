@@ -13,7 +13,9 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/dialog_parking_title"
             android:id="@+id/title"
-            android:background="@color/primary_dark"/>
+            android:background="@color/primary_dark"
+            android:textSize="28sp"
+            android:gravity="bottom"/>
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -23,37 +25,96 @@
             android:padding="10dp">
 
 
-        <CheckBox
-                android:layout_width="match_parent"
+        <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/checkbox_street_parking"
-                android:id="@+id/cbStreets"
+                android:text="@string/parking_layers_title"
+                android:id="@+id/parkingLayersTitle"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:singleLine="true"
+                android:textSize="24sp"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:id="@+id/horizontalRule"
+                android:background="@color/accent"
                 android:layout_marginBottom="10dp"
-                android:onClick="onCheckBoxClicked"/>
+                android:layout_below="@+id/parkingLayersTitle"/>
 
         <CheckBox
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkbox_street_parking"
+                android:id="@+id/cbStreets"
+                android:onClick="onCheckBoxClicked"
+                android:layout_below="@+id/parkingLayersTitle"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"/>
+
+        <CheckBox
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/checkbox_parking_lots"
                 android:id="@+id/cbLots"
                 android:layout_below="@+id/cbStreets"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:onClick="onCheckBoxClicked"/>
 
         <CheckBox
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/checkbox_free_after_five"
                 android:id="@+id/cbFreeAfterFive"
+                android:onClick="onCheckBoxClicked"
+                android:layout_alignTop="@+id/cbStreets"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@+id/cbStreets"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/parking_directions_title"
+                android:id="@+id/directionsTitle"
                 android:layout_below="@+id/cbLots"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:textSize="24sp"
+                android:layout_marginTop="10dp"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:id="@+id/horizontalRule2"
+                android:background="@color/accent"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@+id/directionsTitle"/>
+
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkbox_nearest_parking"
+                android:id="@+id/cbNearest"
+                android:layout_below="@+id/directionsTitle"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp"
                 android:onClick="onCheckBoxClicked"/>
+
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkbox_three_nearest"
+                android:id="@+id/cbThreeNearest"
+                android:layout_below="@+id/cbNearest"
+                android:layout_alignParentStart="true"/>
 
     </RelativeLayout>
 
@@ -61,7 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btnRelative"
-            android:background="@color/primary">
+            android:background="@color/primary_dark">
 
         <Button
                 android:layout_width="wrap_content"
@@ -70,8 +131,10 @@
                 android:id="@+id/parkingClearBtn"
                 android:background="@drawable/alert_button"
                 android:textColor="@color/accent"
-                android:layout_alignTop="@+id/parkingOkBtn"
-                android:layout_centerHorizontal="true"/>
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="20dp"/>
 
         <Button
                 android:layout_width="wrap_content"
@@ -80,19 +143,10 @@
                 android:id="@+id/parkingOkBtn"
                 android:background="@drawable/alert_button"
                 android:textColor="@color/accent"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/parkingClearBtn"
-                android:layout_toStartOf="@+id/parkingClearBtn"/>
-
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Closest"
-                android:id="@+id/closestParking"
-                android:background="@drawable/alert_button"
-                android:textColor="@color/accent"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/parkingClearBtn"
-                android:layout_toEndOf="@+id/parkingClearBtn"/>
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"/>
+
     </RelativeLayout>
 </LinearLayout>

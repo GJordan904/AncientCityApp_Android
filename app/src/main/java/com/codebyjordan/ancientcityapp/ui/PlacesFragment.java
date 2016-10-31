@@ -36,8 +36,7 @@ public class PlacesFragment extends Fragment {
     public static final String ARG_FILTERS = "filters";
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_places, container, false);
         view.setTag(TAG);
 

@@ -13,7 +13,7 @@ public class MapMarkers {
         mMap = map;
     }
 
-    public void make(LatLng coords, String tag) {
+    public void makeBasic(LatLng coords, String tag) {
         MarkerOptions options = new MarkerOptions()
                 .position(coords);
 
@@ -21,4 +21,6 @@ public class MapMarkers {
         marker.setTag(tag);
 
     }
+
+
 }

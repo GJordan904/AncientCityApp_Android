@@ -14,19 +14,20 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
 
-public class MyKmlLayers{
+public class MyKmlLayers {
 
     private final String TAG = MyKmlLayers.class.getSimpleName();
-    private final String STREET_PARKING_TAG = "streetParking";
-    private final String PARKING_LOTS_TAG = "parkingLots";
-    private final String TESTING_TAG =  "testing";
-
     private HashMap<String, KmlLayer> mLayers;
     private HashMap<String, KmlPolygon> mPolygons;
     private GoogleMap mMap;
     private Context mContext;
+
+    public static final String STREET_PARKING_TAG = "streetParking";
+    public static final String PARKING_LOTS_TAG = "parkingLots";
+    public static final String TESTING_TAG = "testing";
 
     public MyKmlLayers(Context context, GoogleMap map) {
         mContext = context;
@@ -41,18 +42,18 @@ public class MyKmlLayers{
 
     public HashMap<String, KmlLayer> getKmlLayers() {
         try {
-            mLayers.put(STREET_PARKING_TAG ,new KmlLayer(mMap, R.raw.street_parking, mContext));
+            mLayers.put(STREET_PARKING_TAG, new KmlLayer(mMap, R.raw.street_parking, mContext));
             mLayers.put(PARKING_LOTS_TAG, new KmlLayer(mMap, R.raw.parking_lots, mContext));
             mLayers.put(TESTING_TAG, new KmlLayer(mMap, R.raw.testing, mContext));
-        }catch (IOException | XmlPullParserException e) {
+        } catch (IOException | XmlPullParserException e) {
             e.printStackTrace();
         }
         return mLayers;
     }
 
-    public HashMap<String, KmlPolygon>getKmlPolygons() {
-        for(KmlLayer layer : mLayers.values()) {
-            for(KmlContainer container : layer.getContainers()) {
+    public HashMap<String, KmlPolygon> getKmlPolygons() {
+        for (KmlLayer layer : mLayers.values()) {
+            for (KmlContainer container : layer.getContainers()) {
                 for (KmlPlacemark placemark : container.getPlacemarks()) {
                     mPolygons.put(placemark.getProperty("name"), (KmlPolygon) placemark.getGeometry());
                 }
@@ -61,4 +62,15 @@ public class MyKmlLayers{
         return mPolygons;
     }
 
+    public KmlPlacemark findPlaceMark(String name) {
+        KmlPlacemark placemark = null;
+        for (KmlLayer layer : mLayers.values()) {
+            for (KmlContainer container : layer.getContainers()) {
+                for (KmlPlacemark mark : container.getPlacemarks()) {
+                    if (mark.getProperty("name").equals(name)) placemark = mark;
+                }
+            }
+        }
+        return placemark;
+    }
 }

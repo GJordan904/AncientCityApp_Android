@@ -2,7 +2,6 @@ package com.codebyjordan.ancientcityapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import com.codebyjordan.ancientcityapp.maps.BaseMapActivity;
 import com.codebyjordan.ancientcityapp.maps.MapMarkers;
 import com.codebyjordan.ancientcityapp.yelp.models.Business;
@@ -42,7 +41,7 @@ public class MapActivity extends BaseMapActivity {
         // Make a marker if a place was passed in the intent
         if(mIntentCoords != null) {
             String tag = mPlace.getId();
-            mMarker.make(mIntentCoords, tag);
+            mMarker.makeBasic(mIntentCoords, tag);
         }
     }
 }

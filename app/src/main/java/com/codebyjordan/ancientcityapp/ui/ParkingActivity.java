@@ -1,37 +1,41 @@
 package com.codebyjordan.ancientcityapp.ui;
 
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import com.codebyjordan.ancientcityapp.R;
 import com.codebyjordan.ancientcityapp.dialogs.ParkingDialog;
 import com.codebyjordan.ancientcityapp.maps.BaseMapActivity;
-import com.codebyjordan.ancientcityapp.maps.FindClosestParking;
+import com.codebyjordan.ancientcityapp.maps.DirectionsToParking;
+import com.codebyjordan.ancientcityapp.maps.DirectionsToParking.ClosestParkingResponse;
 import com.codebyjordan.ancientcityapp.maps.MyKmlLayers;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.maps.android.kml.KmlLayer;
 import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.*;
 
 
-public class ParkingActivity extends BaseMapActivity {
-    private final String TAG = "Parking Activity";
+public class ParkingActivity extends BaseMapActivity implements ClosestParkingResponse {
+
+    private final String TAG = ParkingActivity.class.getSimpleName();
 
     private GoogleMap mMap;
     private KmlLayer mStreetParking;
     private KmlLayer mParkingLots;
+    private KmlLayer mTestingLayer;
     private HashMap<String, KmlLayer> mLayers;
+    private Polygon mClosestParkingPoly;
+    private Polyline mDirectionsLine;
+    private Marker mClosestParkingMark;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +51,13 @@ public class ParkingActivity extends BaseMapActivity {
         // Get KML Layers and set variables
         MyKmlLayers mMyKmlLayers = new MyKmlLayers(this, mMap);
         mLayers = mMyKmlLayers.getKmlLayers();
-        mStreetParking = mLayers.get("streetParking");
-        mParkingLots = mLayers.get("parkingLots");
+        mStreetParking = mLayers.get(MyKmlLayers.STREET_PARKING_TAG);
+        mParkingLots = mLayers.get(MyKmlLayers.PARKING_LOTS_TAG);
+        mTestingLayer = mLayers.get(MyKmlLayers.TESTING_TAG);
 
 
         // Create Dialog
-        final DialogFragment dialog = new ParkingDialog(this, mMap, getApiClient(), mLayers);
+        final DialogFragment dialog = ParkingDialog.newInstance(mMap);
 
         // Set Parking Button click handler and open parking dialog
         Button parkingButton = (Button) findViewById(R.id.parkingButton);
@@ -66,32 +71,54 @@ public class ParkingActivity extends BaseMapActivity {
 
     }
 
+    @Override
+    public void processFinish(Polygon polygon, Polyline line, Marker marker) {
+        mClosestParkingPoly = polygon;
+        mDirectionsLine = line;
+        mClosestParkingMark = marker;
+    }
+
     public void onCheckBoxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
+        Log.v(TAG, "onCheckBoxCLicked: " + checked + ", " + view.getId());
 
         switch(view.getId()) {
             case R.id.cbStreets:
-                ifChecked(checked, mStreetParking);
+                ifLayerChecked(checked, mStreetParking);
                 break;
             case R.id.cbLots:
-                ifChecked(checked, mParkingLots);
+                ifLayerChecked(checked, mParkingLots);
                 break;
             case R.id.cbFreeAfterFive:
 
                 break;
+            case R.id.cbNearest:
+                if(checked) {
+                    Location lastKnown = getLastLocation();
+                    new DirectionsToParking(this, this,  mMap, lastKnown, mLayers).execute();
+                }else{
+                    if(mClosestParkingPoly !=null) {
+                        mClosestParkingPoly.remove();
+                        mDirectionsLine.remove();
+                        mClosestParkingMark.remove();
+                    }
+                }
+                break;
         }
     }
 
-    private void ifChecked(boolean checked, KmlLayer layer) {
+    private void ifLayerChecked(boolean checked, KmlLayer layer) {
+        Log.v(TAG, "ifLayerChecked: " + checked);
         if(checked) {
+            Log.v(TAG, "Adding Layer");
             try {
                 layer.addLayerToMap();
             } catch (IOException | XmlPullParserException e) {
                 e.printStackTrace();
             }
-        }else layer.removeLayerFromMap();
+        }else {
+            Log.v(TAG, "Layer Removed");
+            layer.removeLayerFromMap();
+        }
     }
-
-    // Inner Class for Dialog Fragment. I made it an inner class so it has access to the activities methods
-
 }
