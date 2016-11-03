@@ -53,7 +53,7 @@ public class ParkingActivity extends BaseMapActivity implements ClosestParkingRe
         mLayers = mMyKmlLayers.getKmlLayers();
         mStreetParking = mLayers.get(MyKmlLayers.STREET_PARKING_TAG);
         mParkingLots = mLayers.get(MyKmlLayers.PARKING_LOTS_TAG);
-        mTestingLayer = mLayers.get(MyKmlLayers.TESTING_TAG);
+        //mTestingLayer = mLayers.get(MyKmlLayers.TESTING_TAG);
 
 
         // Create Dialog

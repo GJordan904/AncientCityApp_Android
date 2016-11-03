@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.FoodDrinkActivity"
+            android:name=".ui.PlacesActivity"
             android:label="@string/title_activity_food_drink"
             android:parentActivityName=".ui.MainActivity" >
             <meta-data

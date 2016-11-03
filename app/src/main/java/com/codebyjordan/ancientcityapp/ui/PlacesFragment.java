@@ -28,7 +28,9 @@ public class PlacesFragment extends Fragment {
     private static final String TAG = "PlacesFragment";
 
     private PlacesRecyclerAdapter mAdapter;
+    private Call mCall;
     private ProgressBar mProgressBar;
+    private RecyclerView mRecyclerView;
     private List<Business> mGridItems = new ArrayList<>();
 
     public static final String ARG_OBJECT = "object";
@@ -43,7 +45,7 @@ public class PlacesFragment extends Fragment {
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         // Setup Recycler View
-        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.placesRecycler);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.placesRecycler);
 
         // Check if on phone or tablet and if landscape or portrait to setup the right LayoutManager
         boolean isPhone = getResources().getBoolean(R.bool.is_phone);
@@ -70,6 +72,12 @@ public class PlacesFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if(mCall != null) mCall.cancel();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -83,8 +91,9 @@ public class PlacesFragment extends Fragment {
 
     private void lookupPlaces(int index, String term, String[] filters) {
         // Call google
-        YelpApi api = new YelpApi(term, "Saint+Augustine", index, filters);
-        api.searchArea(new Callback() {
+        YelpApi api = new YelpApi(term, index, filters);
+        mCall = api.createCall();
+        mCall.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -103,8 +112,8 @@ public class PlacesFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                mAdapter.notifyDataSetChanged();
-                                mProgressBar.setVisibility(View.GONE);
+                            mAdapter.notifyDataSetChanged();
+                            mProgressBar.setVisibility(View.GONE);
                             }
                         });
                     } else {

@@ -1,24 +1,31 @@
 package com.codebyjordan.ancientcityapp.picasso;
 
 import android.graphics.Bitmap;
-import android.view.View;
+import android.util.Log;
 
-import android.widget.ImageView;
+import com.codebyjordan.ancientcityapp.custviews.DynamicHeightImageView;
 import com.squareup.picasso.Transformation;
 
 
 public class FitToViewTransformation implements Transformation {
-    private ImageView view;
 
-    public FitToViewTransformation(ImageView view) {
-        this.view = view;
+    private DynamicHeightImageView mView;
+
+    public FitToViewTransformation(DynamicHeightImageView view) {
+        mView = view;
     }
 
     @Override
     public Bitmap transform(Bitmap source) {
-        int targetWidth = view.getWidth();
-
         double aspectRatio = (double) source.getHeight() / (double) source.getWidth();
+
+        while(mView.getWidth() == 0) {
+
+        }
+
+        int targetWidth = mView.getWidth();
+        Log.v("FitToView:", "Target width: " + targetWidth);
+
         int targetHeight = (int) (targetWidth * aspectRatio);
 
 
@@ -27,6 +34,7 @@ public class FitToViewTransformation implements Transformation {
             // Same bitmap is returned if sizes are the same
             source.recycle();
         }
+
         return result;
     }
 

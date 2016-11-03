@@ -31,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
         TableRow weather = (TableRow) findViewById(R.id.rowWeather);
         TableRow map = (TableRow) findViewById(R.id.rowMap);
         // Attach click listeners
-        restaurants.setOnClickListener(new PlacesListOnClick(MainActivity.this, FoodDrinkActivity.class, 0));
-        lodging.setOnClickListener(new PlacesListOnClick(MainActivity.this, LodgingActivity.class, 1));
+        restaurants.setOnClickListener(new PlacesListOnClick(MainActivity.this, PlacesActivity.class, 0));
+        lodging.setOnClickListener(new PlacesListOnClick(MainActivity.this, PlacesActivity.class, 1));
+        attractions.setOnClickListener(new PlacesListOnClick(MainActivity.this, PlacesActivity.class, 2));
 
         parking.setOnClickListener(new StartActivityOnClick(MainActivity.this, ParkingActivity.class));
         map.setOnClickListener(new StartActivityOnClick(MainActivity.this, MapActivity.class));

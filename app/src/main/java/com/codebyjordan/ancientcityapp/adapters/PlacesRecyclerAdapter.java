@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
-import android.os.Parcelable;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,15 +22,34 @@ import com.squareup.picasso.Target;
 
 import java.util.List;
 
-public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAdapter.PlacesView> {
+public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAdapter.PlacesView> implements View.OnClickListener{
 
     private Context mContext;
     private List<Business> mPlaces;
-    private FitToViewTransformation mFitToView;
+
 
     public PlacesRecyclerAdapter(Context context, List<Business> places) {
         mContext = context;
         mPlaces = places;
+    }
+
+    public class PlacesView extends RecyclerView.ViewHolder {
+        DynamicHeightImageView placeImage;
+        ImageView menuDots;
+        TextView nameText;
+        TextView phoneText;
+        TextView hoursText;
+        TextView addressText;
+
+        public PlacesView(View itemView) {
+            super(itemView);
+            placeImage = (DynamicHeightImageView) itemView.findViewById(R.id.placeImage);
+            menuDots = (ImageView) itemView.findViewById(R.id.menuDots);
+            nameText = (TextView) itemView.findViewById(R.id.nameText);
+            phoneText = (TextView) itemView.findViewById(R.id.phoneText);
+            hoursText = (TextView) itemView.findViewById(R.id.hoursText);
+            addressText = (TextView) itemView.findViewById(R.id.addressText);
+        }
     }
 
     @Override
@@ -47,38 +64,33 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
             view = LayoutInflater.from(mContext).inflate(R.layout.cardview_places, parent, false);
         }
 
-        mFitToView = new FitToViewTransformation((ImageView) view.findViewById(R.id.placeImage));
-
         return new PlacesView(view);
     }
 
     @Override
-    public void onBindViewHolder(PlacesView placesView, final int i) {
+    public void onBindViewHolder(final PlacesView placesView, final int i) {
 
         // Setup details variables
         final Business place = mPlaces.get(i);
         String name = place.getName();
         final String phone = place.getPhone();
-        String photo = place.getImage_url();
         String address = place.getLocation().getAddress()[0];
         final BusinessLocationCoords coords = place.getLocation().getCoordinate();
         String open;
+        final String photo = place.getImage_url();
         if(place.is_closed()){
             open = "Closed";
         }else{
             open = "Open";
         }
 
-        Picasso.with(mContext)
-                .load(photo)
-                .transform(mFitToView)
-                .into(placesView.placeImage);
-
+        // Set Text Views
         placesView.nameText.setText(name);
         placesView.phoneText.setText(phone);
         placesView.addressText.setText(address);
         placesView.hoursText.setText(open);
 
+        // Setup Menu
         placesView.menuDots.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +121,35 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
                 popup.show();
             }
         });
+
+        // Load Images
+        final Target target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                float ratio = (float) bitmap.getHeight() / (float) bitmap.getWidth();
+                Log.v("RecyclerAdapter", "Aspect Ratio: " + ratio);
+                placesView.placeImage.setAspectRatio(ratio);
+                placesView.placeImage.setImageBitmap(bitmap);
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };
+        placesView.placeImage.setTag(target);
+
+        Picasso.with(mContext)
+                .load(photo)
+                .placeholder(R.drawable.cast_album_art_placeholder)
+                .error(R.drawable.item_icon_parking)
+                .transform(new FitToViewTransformation(placesView.placeImage))
+                .into(target);
     }
 
     @Override
@@ -116,38 +157,10 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
         return mPlaces.size();
     }
 
-    public class PlacesView extends RecyclerView.ViewHolder implements Target {
-        DynamicHeightImageView placeImage;
-        ImageView menuDots;
-        TextView nameText;
-        TextView phoneText;
-        TextView hoursText;
-        TextView addressText;
-
-        public PlacesView(View itemView) {
-            super(itemView);
-            placeImage = (DynamicHeightImageView) itemView.findViewById(R.id.placeImage);
-            menuDots = (ImageView) itemView.findViewById(R.id.menuDots);
-            nameText = (TextView) itemView.findViewById(R.id.nameText);
-            phoneText = (TextView) itemView.findViewById(R.id.phoneText);
-            hoursText = (TextView) itemView.findViewById(R.id.hoursText);
-            addressText = (TextView) itemView.findViewById(R.id.addressText);
-        }
-
-        @Override
-        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-            float ratio = (float) bitmap.getHeight() / (float) bitmap.getWidth();
-            placeImage.setHeightRatio(ratio);
-            placeImage.setImageBitmap(bitmap);
-        }
-
-        @Override
-        public void onBitmapFailed(Drawable errorDrawable) {
-
-        }
-
-        @Override
-        public void onPrepareLoad(Drawable placeHolderDrawable) {
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.placeImage: case R.id.nameText:
 
         }
     }

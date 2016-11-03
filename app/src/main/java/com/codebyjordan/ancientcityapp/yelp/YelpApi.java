@@ -8,39 +8,37 @@ import se.akerfeldt.okhttp.signpost.SigningInterceptor;
 public class YelpApi {
 
     private final String API_HOST = "api.yelp.com";
-    private final String SEARCH_PATH = "v2/search";
-    private final String BUSINESS_PATH = "v2/business/";
-
-
     private OkHttpClient mClient;
     private String mSearchTerm;
-    private String mSearchLocation;
     private String mSearchId;
     private String[] mFilters;
     private int mFilterIndex;
 
-    public YelpApi(String searchTerm, String searchLocation, int index, String[] filters){
+    public YelpApi(String searchTerm, int index, String[] filters){
         mSearchTerm = searchTerm;
-        mSearchLocation = searchLocation;
         mFilterIndex = index;
         mFilters = filters;
+        mClient = createClient();
     }
 
     public YelpApi(String id) {
         mSearchId = id;
     }
 
-    public void searchArea(Callback callback) {
-        createClient();
+    public OkHttpClient getClient() {
+        return mClient;
+    }
 
+    public Call createCall() {
         // Build URL
+        String SEARCH_PATH = "v2/search";
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("https")
                 .host(API_HOST)
                 .addPathSegments(SEARCH_PATH)
                 .addQueryParameter("term", mSearchTerm)
                 .addQueryParameter("category_filter", mFilters[mFilterIndex])
-                .addQueryParameter("location", mSearchLocation)
+                .addQueryParameter("location", "Saint+Augustine")
                 .addQueryParameter("radius_filter", "8000")
                 .build();
 
@@ -50,13 +48,12 @@ public class YelpApi {
                 .build();
 
         // Make Call
-        mClient.newCall(request).enqueue(callback);
+        return mClient.newCall(request);
     }
 
     public void lookupBusiness(Callback callback) {
-        createClient();
-
         // Build URL
+        String BUSINESS_PATH = "v2/business/";
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("https")
                 .host(API_HOST)
@@ -73,7 +70,7 @@ public class YelpApi {
         mClient.newCall(request).enqueue(callback);
     }
 
-    private void createClient() {
+    private OkHttpClient createClient() {
         String CONSUMER_KEY = "iwj1fWu6Csx9mN4kEzX13A";
         String CONSUMER_SECRET = "oZwpXvfCyXIXoHLny0x3NzNNGRo";
         String TOKEN = "32hKpSefyBO87bmBC3ZMAeZOsFz8acBM";
@@ -82,7 +79,7 @@ public class YelpApi {
         OkHttpOAuthConsumer consumer = new OkHttpOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
         consumer.setTokenWithSecret(TOKEN, TOKEN_SECRET);
 
-        mClient = new OkHttpClient.Builder()
+        return new OkHttpClient.Builder()
                 .addInterceptor(new SigningInterceptor(consumer))
                 .build();
     }

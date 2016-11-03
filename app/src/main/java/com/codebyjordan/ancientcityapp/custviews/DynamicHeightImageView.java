@@ -2,11 +2,12 @@ package com.codebyjordan.ancientcityapp.custviews;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 
 public class DynamicHeightImageView extends ImageView {
 
-    private double mHeightRatio;
+    private double mAspectRatio;
 
     public DynamicHeightImageView(Context context) {
         super(context);
@@ -16,26 +17,33 @@ public class DynamicHeightImageView extends ImageView {
         super(context, attrs);
     }
 
-    public void setHeightRatio(double ratio) {
-        if (ratio != mHeightRatio) {
-            mHeightRatio = ratio;
-            requestLayout();
-        }
+    public void setAspectRatio(double ratio) {
+        Log.v("setAspectRatio", "aspect ratio set");
+        mAspectRatio = ratio;
+        requestLayout();
     }
 
-    public double getHeightRatio() {
-        return mHeightRatio;
+    public void setAspectRatio(double ratio, boolean waiting) {
+        Log.v("setAspectRatio in Wait", "aspect ratio set");
+        mAspectRatio = ratio;
+
+    }
+
+    public double getAspectRatio() {
+        return mAspectRatio;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (mHeightRatio > 0.0) {
+        if (mAspectRatio > 0.0) {
+            Log.v("onMeasure", "Setting imageviews size");
             // set the image views size
             int width = MeasureSpec.getSize(widthMeasureSpec);
-            int height = (int) (width * mHeightRatio);
+            int height = (int) (width * mAspectRatio);
             setMeasuredDimension(width, height);
         }
         else {
+            Log.v("onMeasure", "Aspect ratio not set");
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }

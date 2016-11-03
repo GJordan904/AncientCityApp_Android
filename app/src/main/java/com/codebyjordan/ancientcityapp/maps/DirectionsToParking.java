@@ -1,6 +1,7 @@
 package com.codebyjordan.ancientcityapp.maps;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -115,6 +116,7 @@ public class DirectionsToParking extends AsyncTask<Void, Void, Route>{
         }
         polygonOptions
                 .strokeColor(Color.RED)
+                .strokeWidth(2)
                 .fillColor(Color.CYAN);
         Polygon closestParkingPolygon = mMap.addPolygon(polygonOptions);
 
@@ -123,6 +125,7 @@ public class DirectionsToParking extends AsyncTask<Void, Void, Route>{
         MarkerOptions markerOptions = new MarkerOptions().position(mClosestCenter);
         if(placemark != null) {
             markerOptions
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                 .title(placemark.getProperty("name"))
                 .snippet(placemark.getProperty("description"));
         }
@@ -143,31 +146,15 @@ public class DirectionsToParking extends AsyncTask<Void, Void, Route>{
     // Find polygons that are within 1000 meters of the devices location
     private HashMap<String, LatLng> nearbyPoints() {
         HashMap<String, LatLng> nearby = new HashMap<>();
-        LatLngBounds.Builder boundsBuilder = new LatLngBounds.Builder();
 
-        // For each Polygon find its center and add it to the hashmap
+        // For each Polygon find its points and add them to the hashmap
         for(Map.Entry entry : mPolygons.entrySet()) {
             String polygonName = entry.getKey().toString();
             KmlPolygon polygon = (KmlPolygon) entry.getValue();
-            // For each point on the polygon
-            for(int i = 0; i < polygon.getGeometryObject().size(); i++) {
-                // Create bounds with points
-                for (LatLng point : polygon.getGeometryObject().get(i)) {
-                    LatLng cords = new LatLng(point.latitude, point.longitude);
-                    boundsBuilder.include(cords);
-                }
+            for (LatLng point : polygon.getOuterBoundaryCoordinates()) {
+                LatLng cords = new LatLng(point.latitude, point.longitude);
+                nearby.put(polygonName, cords);
             }
-            LatLngBounds bounds = boundsBuilder.build();
-            Log.v(TAG, "Bounds for " + polygonName + bounds);
-            LatLng center = bounds.getCenter();
-
-            Log.v(TAG, polygonName + ": " + center);
-
-            Location target = new Location("");
-            target.setLatitude(center.latitude);
-            target.setLongitude(center.longitude);
-
-            nearby.put(polygonName, center);
         }
         return nearby;
     }

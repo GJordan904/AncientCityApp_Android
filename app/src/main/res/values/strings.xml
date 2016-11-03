@@ -48,4 +48,6 @@
     <string name="parking_directions_title">Directions to Parking</string>
     <string name="checkbox_nearest_parking">Show Route to Nearest Parking</string>
     <string name="checkbox_three_nearest">3 Nearest Parking Areas</string>
+    <string name="key_fragment_titles">Fragment Titles</string>
+    <string name="key_activity_title">Activity Title</string>
 </resources>

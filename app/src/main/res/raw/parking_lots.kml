@@ -2,42 +2,6 @@
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document>
 	<name>parking_lots.kml</name>
-	<StyleMap id="msn_ylw-pushpin">
-		<Pair>
-			<key>normal</key>
-			<styleUrl>#sn_ylw-pushpin</styleUrl>
-		</Pair>
-		<Pair>
-			<key>highlight</key>
-			<styleUrl>#sh_ylw-pushpin</styleUrl>
-		</Pair>
-	</StyleMap>
-	<Style id="sn_ylw-pushpin">
-		<IconStyle>
-			<scale>1.1</scale>
-			<Icon>
-				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
-			</Icon>
-			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
-		</IconStyle>
-		<LineStyle>
-			<color>ffff55ff</color>
-			<width>3</width>
-		</LineStyle>
-		<PolyStyle>
-			<color>a6ff5500</color>
-		</PolyStyle>
-	</Style>
-	<StyleMap id="msn_ylw-pushpin0">
-		<Pair>
-			<key>normal</key>
-			<styleUrl>#sn_ylw-pushpin0</styleUrl>
-		</Pair>
-		<Pair>
-			<key>highlight</key>
-			<styleUrl>#sh_ylw-pushpin0</styleUrl>
-		</Pair>
-	</StyleMap>
 	<Style id="sh_ylw-pushpin">
 		<IconStyle>
 			<scale>1.3</scale>
@@ -70,6 +34,32 @@
 			<color>a6ff5500</color>
 		</PolyStyle>
 	</Style>
+	<StyleMap id="msn_ylw-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-pushpin1</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-pushpin1</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_ylw-pushpin">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+			<color>ffff55ff</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>a6ff5500</color>
+		</PolyStyle>
+	</Style>
 	<Style id="sn_ylw-pushpin0">
 		<IconStyle>
 			<scale>1.1</scale>
@@ -86,66 +76,147 @@
 			<color>a6ff5500</color>
 		</PolyStyle>
 	</Style>
-
-    <Placemark>
-        <name>Toque Place Lot</name>
-        <description>City parking lot with paystation. Free on Sunday and everday after 5pm</description>
-        <styleUrl>#msn_ylw-pushpin0</styleUrl>
-        <Polygon>
-            <tessellate>1</tessellate>
-            <outerBoundaryIs>
-                <LinearRing>
-                    <coordinates>
-                        -81.31253390936507,29.89545965357626,0 -81.31281056796919,29.89542390128987,0 -81.31268195047414,29.89493184147917,0 -81.31231013865356,29.89501563489305,0 -81.31236661984077,29.8952069218532,0 -81.31246543392734,29.89521360431014,0 -81.31253390936507,29.89545965357626,0
-                    </coordinates>
-                </LinearRing>
-            </outerBoundaryIs>
-        </Polygon>
-    </Placemark>
-    <Placemark>
-        <name>Columbia Lot</name>
-        <description>Pay parking lot owned and operated by the Columbia Restaurant. </description>
-        <styleUrl>#msn_ylw-pushpin</styleUrl>
-        <Polygon>
-            <tessellate>1</tessellate>
-            <outerBoundaryIs>
-                <LinearRing>
-                    <coordinates>
-                        -81.31366738620481,29.89510622380905,0 -81.31323084338634,29.89514719872178,0 -81.31330757460971,29.89555269681801,0 -81.31347967918579,29.89552224307969,0 -81.31351657551188,29.89567429395084,0 -81.31377010300537,29.89564434350586,0 -81.31366738620481,29.89510622380905,0
-                    </coordinates>
-                </LinearRing>
-            </outerBoundaryIs>
-        </Polygon>
-    </Placemark>
-    <Placemark>
-        <name>Carrera/Cordova Lot</name>
-        <description>City parking lot at the intersection of Carrera St. and Cordova St. Free on Sunday and everday after 5pm</description>
-        <styleUrl>#msn_ylw-pushpin</styleUrl>
-        <Polygon>
-            <tessellate>1</tessellate>
-            <outerBoundaryIs>
-                <LinearRing>
-                    <coordinates>
-                        -81.31521434267637,29.89475374067218,0 -81.3151088700892,29.89435470180947,0 -81.31460555249693,29.89443055990764,0 -81.31470558782286,29.89482395573988,0 -81.31521434267637,29.89475374067218,0
-                    </coordinates>
-                </LinearRing>
-            </outerBoundaryIs>
-        </Polygon>
-    </Placemark>
-    <Placemark>
-        <name>Castillo de San Marco Lot</name>
-        <description>Parking lot at the Castillo de San Marco</description>
-        <styleUrl>#msn_ylw-pushpin</styleUrl>
-        <Polygon>
-            <tessellate>1</tessellate>
-            <outerBoundaryIs>
-                <LinearRing>
-                    <coordinates>
-                        -81.31207185700976,29.8969215984397,0 -81.31238569273727,29.89666395951193,0 -81.31128674269122,29.89606006764627,0 -81.31112111712535,29.89636757908564,0 -81.31207185700976,29.8969215984397,0
-                    </coordinates>
-                </LinearRing>
-            </outerBoundaryIs>
-        </Polygon>
-    </Placemark>
+	<Style id="sh_ylw-pushpin1">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+			<color>ffff00ff</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>a6ff5500</color>
+		</PolyStyle>
+	</Style>
+	<StyleMap id="msn_ylw-pushpin0">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-pushpin0</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-pushpin0</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_ylw-pushpin1">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+			<color>ffff00ff</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>a6ff5500</color>
+		</PolyStyle>
+	</Style>
+	<StyleMap id="msn_ylw-pushpin1">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-pushpin</styleUrl>
+		</Pair>
+	</StyleMap>
+		<Placemark>
+			<name>Toque Place Lot</name>
+			<description>City Lot $1.50/hr</description>
+			<styleUrl>#msn_ylw-pushpin1</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31253390936507,29.89545965357626,0 -81.31281056796919,29.89542390128987,0 -81.31268195047414,29.89493184147917,0 -81.31231013865356,29.89501563489305,0 -81.31236661984077,29.8952069218532,0 -81.31246543392734,29.89521360431014,0 -81.31253390936507,29.89545965357626,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Columbia Lot</name>
+			<description>Private Lot</description>
+			<styleUrl>#msn_ylw-pushpin1</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31366738620481,29.89510622380906,0 -81.31323084338634,29.89514719872178,0 -81.31330757460971,29.89555269681801,0 -81.31347967918579,29.89552224307969,0 -81.31351657551188,29.89567429395084,0 -81.31377010300537,29.89564434350586,0 -81.31366738620481,29.89510622380906,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Carrera/Cordova Lot</name>
+			<description>City Lot $1.50/hr</description>
+			<styleUrl>#msn_ylw-pushpin1</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31521434267637,29.89475374067218,0 -81.3151088700892,29.89435470180947,0 -81.31460555249693,29.89443055990764,0 -81.31470558782286,29.89482395573988,0 -81.31521434267637,29.89475374067218,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Castillo de San Marco Lot</name>
+			<description>Parking lot at the Castillo de San Marco</description>
+			<styleUrl>#msn_ylw-pushpin0</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31207185700976,29.8969215984397,0 -81.31238569273727,29.89666395951193,0 -81.31128674269122,29.89606006764627,0 -81.31112111712535,29.89636757908564,0 -81.31207185700976,29.8969215984397,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Charlotte St. Lot</name>
+			<description>City Lot $1.50/hr</description>
+			<styleUrl>#msn_ylw-pushpin</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31209274499186,29.89407360651172,0 -81.31172553582901,29.89410694163301,0 -81.31177255674983,29.89443731466292,0 -81.31212753169733,29.8944010350376,0 -81.31209274499186,29.89407360651172,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Spanish St. Lot</name>
+			<description>City Lot $1.50</description>
+			<styleUrl>#msn_ylw-pushpin</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31350556623268,29.89359647053046,0 -81.31312627869104,29.89363585524352,0 -81.31316476910455,29.89412431282611,0 -81.31356014095775,29.89408534319352,0 -81.31350556623268,29.89359647053046,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
 </Document>
 </kml>

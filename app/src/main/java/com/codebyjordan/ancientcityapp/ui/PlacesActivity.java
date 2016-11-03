@@ -10,28 +10,22 @@ import android.support.v7.widget.Toolbar;
 import com.codebyjordan.ancientcityapp.R;
 import com.codebyjordan.ancientcityapp.adapters.PlacesFragmentPager;
 
-public class FoodDrinkActivity extends AppCompatActivity {
-
-    public String[] fragmentTitles() {
-        return new String[]{
-                "All",
-                "American",
-                "Breakfast",
-                "French",
-                "Italian",
-                "Spanish"
-        };
-    }
+public class PlacesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_places);
 
-        // Get Data passed from Main Activity to pass to fragment
+        // Get Data passed from Main Activity
         Intent intent = getIntent();
         String searchTerm = intent.getStringExtra(getString(R.string.key_term));
         String[] searchFilters = intent.getStringArrayExtra(getString(R.string.key_filters));
+        String activityTitle = intent.getStringExtra(getString(R.string.key_activity_title));
+        String[] fragmentTitles = intent.getStringArrayExtra(getString(R.string.key_fragment_titles));
+
+        // Set activity title
+        setTitle(activityTitle);
 
         // Create Toolbar and set as action bar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarMain);
@@ -42,7 +36,7 @@ public class FoodDrinkActivity extends AppCompatActivity {
 
         // Setup Fragment Manager
         PlacesFragmentPager mPlacesFragmentPager = new PlacesFragmentPager(getSupportFragmentManager(),
-                searchTerm, searchFilters, fragmentTitles());
+                searchTerm, searchFilters, fragmentTitles);
         ViewPager mViewPager = (ViewPager) findViewById(R.id.placesPager);
         mViewPager.setAdapter(mPlacesFragmentPager);
 

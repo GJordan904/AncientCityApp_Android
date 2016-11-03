@@ -2,22 +2,16 @@
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document>
 	<name>street_parking.kml</name>
-	<Style id="sh_ylw-pushpin">
-		<IconStyle>
-			<scale>1.3</scale>
-			<Icon>
-				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
-			</Icon>
-			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
-		</IconStyle>
-		<LineStyle>
-			<color>ff7fffff</color>
-			<width>3</width>
-		</LineStyle>
-		<PolyStyle>
-			<color>a600ff00</color>
-		</PolyStyle>
-	</Style>
+	<StyleMap id="msn_ylw-pushpin1">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-pushpin1</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-pushpin0</styleUrl>
+		</Pair>
+	</StyleMap>
 	<StyleMap id="msn_ylw-pushpin">
 		<Pair>
 			<key>normal</key>
@@ -44,53 +38,251 @@
 			<color>a600ff00</color>
 		</PolyStyle>
 	</Style>
-
-    <Placemark>
-        <name>Cathedral Place</name>
-        <description>Street parking on both sides of the road. Free on Sunday and everday after 5pm</description>
-        <styleUrl>#msn_ylw-pushpin</styleUrl>
-        <Polygon>
-            <tessellate>1</tessellate>
-            <altitudeMode>relativeToGround</altitudeMode>
-            <outerBoundaryIs>
-                <LinearRing>
-                    <coordinates>
-                        -81.31153096788854,29.89271881723379,2 -81.31152889913086,29.89279062910044,2 -81.31399187351724,29.89272110424592,2 -81.31396896669581,29.89264057961272,2 -81.31153096788854,29.89271881723379,2
-                    </coordinates>
-                </LinearRing>
-            </outerBoundaryIs>
-        </Polygon>
-    </Placemark>
-    <Placemark>
-        <name>King Street</name>
-        <description>Street parking on both sides of road. Free on Sunday and everday after 5pm</description>
-        <styleUrl>#msn_ylw-pushpin</styleUrl>
-        <Polygon>
-            <tessellate>1</tessellate>
-            <outerBoundaryIs>
-                <LinearRing>
-                    <coordinates>
-                        -81.3117719989267,29.89221001914441,0 -81.31178602290284,29.89230462889736,0 -81.31383828563725,29.89225406740457,0 -81.31382094987278,29.89216150822025,0 -81.3117719989267,29.89221001914441,0
-                    </coordinates>
-                </LinearRing>
-            </outerBoundaryIs>
-        </Polygon>
-    </Placemark>
-    <Placemark>
-        <name>Avenida Menendez Eastside</name>
-        <description>Street Parking on eastside just before the carriages. Free on Sunday and everday after 5pm</description>
-        <styleUrl>#msn_ylw-pushpin</styleUrl>
-        <Polygon>
-            <tessellate>1</tessellate>
-            <outerBoundaryIs>
-                <LinearRing>
-                    <coordinates>
-                        -81.31090714960258,29.89453882911373,0 -81.31096190503368,29.89453721884875,0 -81.31090812712362,29.89348085077176,0 -81.31085064591288,29.89348744809226,0 -81.31090714960258,29.89453882911373,0
-                    </coordinates>
-                </LinearRing>
-            </outerBoundaryIs>
-        </Polygon>
-    </Placemark>
-
+	<Style id="sn_ylw-pushpin1">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+			<color>ff7fffff</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>a600ff00</color>
+		</PolyStyle>
+	</Style>
+	<Style id="sh_ylw-pushpin0">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+			<color>ff7fffff</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>a600ff00</color>
+		</PolyStyle>
+	</Style>
+	<Style id="sh_ylw-pushpin">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+			<color>ff7fffff</color>
+			<width>3</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>a600ff00</color>
+		</PolyStyle>
+	</Style>
+		<Placemark>
+			<name>Cathedral Place</name>
+			<description>Street parking $1.50/hr</description>
+			<styleUrl>#msn_ylw-pushpin1</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<altitudeMode>relativeToGround</altitudeMode>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31153096788854,29.89271881723379,2 -81.31152889913086,29.89279062910044,2 -81.31399187351724,29.89272110424592,2 -81.31396896669581,29.89264057961272,2 -81.31153096788854,29.89271881723379,2 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>King Street</name>
+			<description>Street parking $1.50/hr</description>
+			<styleUrl>#msn_ylw-pushpin1</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.3117719989267,29.89221001914441,0 -81.31178602290284,29.89230462889736,0 -81.31383828563725,29.89225406740457,0 -81.31382094987278,29.89216150822025,0 -81.3117719989267,29.89221001914441,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Avenida Menendez NB</name>
+			<description>Street Parking $1.50/hr</description>
+			<styleUrl>#msn_ylw-pushpin</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31090714960258,29.89453882911373,0 -81.31096190503368,29.89453721884875,0 -81.31090812712362,29.89348085077176,0 -81.31085064591288,29.89348744809226,0 -81.31090714960258,29.89453882911373,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Avenida Menendez SB</name>
+			<description>Street Parking</description>
+			<styleUrl>#msn_ylw-pushpin</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31091468423647,29.89184483196849,0 -81.31084811112473,29.89185595205761,0 -81.31092543609979,29.89209602269181,0 -81.31099245210279,29.89208247596705,0 -81.31091468423647,29.89184483196849,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Avenida Menendez NB</name>
+			<description>Street Paarking $1.50</description>
+			<styleUrl>#msn_ylw-pushpin</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31072339946112,29.89181097087856,0 -81.31077939844612,29.8917954286866,0 -81.31068491770765,29.89163310324998,0 -81.31062612105492,29.89164456461262,0 -81.31072339946112,29.89181097087856,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Avenida Menendez NB</name>
+			<description>Street Paarking $1.50</description>
+			<styleUrl>#msn_ylw-pushpin</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31051245264695,29.89149217739045,0 -81.31056374469554,29.89147414537161,0 -81.31050327562298,29.89140115016357,0 -81.31045856820599,29.89141946551547,0 -81.31051245264695,29.89149217739045,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Avenida Menendez NB/SB</name>
+			<description>Street Paarking $1.50</description>
+			<styleUrl>#msn_ylw-pushpin</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31013105320928,29.89080317590981,0 -81.30998830093759,29.89082024753871,0 -81.31018067187068,29.89106055667274,0 -81.31028319073589,29.89099891202527,0 -81.31013105320928,29.89080317590981,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Avenida Menendez NB/SB</name>
+			<description>Street Paarking $1.50</description>
+			<styleUrl>#msn_ylw-pushpin</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.3097132690952,29.89021639425615,0 -81.30958223768835,29.8899254172145,0 -81.30948849230384,29.88937500382622,0 -81.30935198749961,29.88858617965715,0 -81.30935089485757,29.88858713692192,0 -81.30933453291999,29.88828959266085,0 -81.3091972718977,29.88819488471486,0 -81.30920863426034,29.88859325852608,0 -81.30946299044543,29.89004390690883,0 -81.30952177655925,29.8901638175042,0 -81.30984831019101,29.8906440401408,0 -81.30998304099678,29.8905774774134,0 -81.3097132690952,29.89021639425615,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Avenida Menendez SB</name>
+			<description>Street Paarking $1.50</description>
+			<styleUrl>#msn_ylw-pushpin</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31110117347701,29.89426519906406,0 -81.31110190492714,29.89426713588921,0 -81.31110546041313,29.89426761241742,0 -81.31110990710891,29.89426822026412,0 -81.31116479694293,29.89426400235487,0 -81.31115174635713,29.89401148483321,0 -81.31108768716474,29.89401354392001,0 -81.31110117347701,29.89426519906406,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Avenida Menendez SB</name>
+			<description>Street Paarking $1.50
+</description>
+			<styleUrl>#msn_ylw-pushpin</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.3111786963912,29.89455485995935,0 -81.31113289964898,29.89455571432493,0 -81.31114221662891,29.89488622324959,0 -81.31119191773699,29.8948833593093,0 -81.3111786963912,29.89455485995935,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Avenida Menendez SB</name>
+			<description>Street Paarking $1.50
+		</description>
+			<styleUrl>#msn_ylw-pushpin</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31125213651947,29.89569528403257,0 -81.311237306941,29.89557145074573,0 -81.31118436986782,29.89557517742174,0 -81.31119441688092,29.89569691943055,0 -81.31125213651947,29.89569528403257,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Charlotte Street</name>
+			<description>Street Paarking $1.50</description>
+			<styleUrl>#msn_ylw-pushpin</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31194657487683,29.89584125955398,0 -81.31186327308552,29.89506303836135,0 -81.31173675191363,29.89426715482272,0 -81.31166506346688,29.89378831555313,0 -81.31151576759351,29.89287775365576,0 -81.31145931591546,29.89288361350138,0 -81.31148423285217,29.89306088549224,0 -81.3118505031896,29.89539556182591,0 -81.31189279926849,29.89584050851202,0 -81.31194657487683,29.89584125955398,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Anderson Circle</name>
+			<description>Street Paarking $1.50</description>
+			<styleUrl>#msn_ylw-pushpin</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							-81.31143637744093,29.89303937639506,0 -81.31140168586342,29.89299886383392,0 -81.31131719931574,29.89302690366815,0 -81.31121405392756,29.89301020566194,0 -81.31117873690448,29.89303605938173,0 -81.3112836420448,29.89305368617037,0 -81.31143637744093,29.89303937639506,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
 </Document>
 </kml>

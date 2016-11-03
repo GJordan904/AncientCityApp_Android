@@ -44,7 +44,7 @@ public class MyKmlLayers {
         try {
             mLayers.put(STREET_PARKING_TAG, new KmlLayer(mMap, R.raw.street_parking, mContext));
             mLayers.put(PARKING_LOTS_TAG, new KmlLayer(mMap, R.raw.parking_lots, mContext));
-            mLayers.put(TESTING_TAG, new KmlLayer(mMap, R.raw.testing, mContext));
+            //mLayers.put(TESTING_TAG, new KmlLayer(mMap, R.raw.testing, mContext));
         } catch (IOException | XmlPullParserException e) {
             e.printStackTrace();
         }
