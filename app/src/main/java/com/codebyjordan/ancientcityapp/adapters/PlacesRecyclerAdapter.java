@@ -10,11 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.*;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import com.codebyjordan.ancientcityapp.custviews.DynamicHeightImageView;
 import com.codebyjordan.ancientcityapp.picasso.FitToViewTransformation;
 import com.codebyjordan.ancientcityapp.R;
+import com.codebyjordan.ancientcityapp.picasso.ResizableTarget;
 import com.codebyjordan.ancientcityapp.ui.MapActivity;
+import com.codebyjordan.ancientcityapp.ui.PlaceDetailActivity;
 import com.codebyjordan.ancientcityapp.yelp.models.Business;
 import com.codebyjordan.ancientcityapp.yelp.models.BusinessLocationCoords;
 import com.squareup.picasso.Picasso;
@@ -22,7 +25,7 @@ import com.squareup.picasso.Target;
 
 import java.util.List;
 
-public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAdapter.PlacesView> implements View.OnClickListener{
+public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAdapter.PlacesView>{
 
     private Context mContext;
     private List<Business> mPlaces;
@@ -33,10 +36,14 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
         mPlaces = places;
     }
 
+    //
+    // View Holder
+    //
     public class PlacesView extends RecyclerView.ViewHolder {
         DynamicHeightImageView placeImage;
         ImageView menuDots;
         TextView nameText;
+        TableLayout tableLayout;
         TextView phoneText;
         TextView hoursText;
         TextView addressText;
@@ -46,12 +53,16 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
             placeImage = (DynamicHeightImageView) itemView.findViewById(R.id.placeImage);
             menuDots = (ImageView) itemView.findViewById(R.id.menuDots);
             nameText = (TextView) itemView.findViewById(R.id.nameText);
+            tableLayout = (TableLayout) itemView.findViewById(R.id.tableLayout);
             phoneText = (TextView) itemView.findViewById(R.id.phoneText);
             hoursText = (TextView) itemView.findViewById(R.id.hoursText);
             addressText = (TextView) itemView.findViewById(R.id.addressText);
         }
     }
 
+    //
+    // Recycler Adapter Overrides
+    //
     @Override
     public PlacesView onCreateViewHolder(ViewGroup parent, int i) {
         // Check whether on phone or tablet and if landscape or portrait and load correct view
@@ -73,7 +84,8 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
         // Setup details variables
         final Business place = mPlaces.get(i);
         String name = place.getName();
-        final String phone = place.getPhone();
+        final String businessId = place.getId();
+        final String phone = place.formattedPhone();
         String address = place.getLocation().getAddress()[0];
         final BusinessLocationCoords coords = place.getLocation().getCoordinate();
         String open;
@@ -90,58 +102,53 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
         placesView.addressText.setText(address);
         placesView.hoursText.setText(open);
 
-        // Setup Menu
-        placesView.menuDots.setOnClickListener(new View.OnClickListener() {
+        // Setup Click Handlers
+        View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                View menuItemView = v.findViewById(R.id.menuDots);
-                PopupMenu popup = new PopupMenu(mContext, menuItemView);
-                MenuInflater inflater = popup.getMenuInflater();
-                inflater.inflate(R.menu.menu_places, popup.getMenu());
+            public void onClick(View view) {
+                switch(view.getId()) {
+                    case R.id.placeImage: case R.id.nameText:
+                    case R.id.tableLayout:
+                        Intent intent = new Intent(mContext, PlaceDetailActivity.class);
+                        intent.putExtra(mContext.getString(R.string.key_business_id), businessId);
+                        mContext.startActivity(intent);
+                        break;
+                    case R.id.menuDots:
+                        View menuItemView = view.findViewById(R.id.menuDots);
+                        PopupMenu popup = new PopupMenu(mContext, menuItemView);
+                        MenuInflater inflater = popup.getMenuInflater();
+                        inflater.inflate(R.menu.menu_places, popup.getMenu());
 
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch(item.getItemId()) {
-                            case R.id.action_map:
-                                Intent mapIntent = new Intent(mContext, MapActivity.class);
-                                mapIntent.putExtra("key_place", place);
-                                mapIntent.putExtra("key_coords", coords);
-                                mContext.startActivity(mapIntent);
-                                break;
-                            case R.id.action_call:
-                                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                                callIntent.setData(Uri.parse("tel:" + phone));
-                                mContext.startActivity(callIntent);
-                                break;
-                        }
-                        return false;
-                    }
-                });
-                popup.show();
-            }
-        });
-
-        // Load Images
-        final Target target = new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                float ratio = (float) bitmap.getHeight() / (float) bitmap.getWidth();
-                Log.v("RecyclerAdapter", "Aspect Ratio: " + ratio);
-                placesView.placeImage.setAspectRatio(ratio);
-                placesView.placeImage.setImageBitmap(bitmap);
-            }
-
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
+                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch(item.getItemId()) {
+                                    case R.id.action_map:
+                                        Intent mapIntent = new Intent(mContext, MapActivity.class);
+                                        mapIntent.putExtra("key_place", place);
+                                        mapIntent.putExtra("key_coords", coords);
+                                        mContext.startActivity(mapIntent);
+                                        break;
+                                    case R.id.action_call:
+                                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                                        callIntent.setData(Uri.parse("tel:" + phone));
+                                        mContext.startActivity(callIntent);
+                                        break;
+                                }
+                                return false;
+                            }
+                        });
+                        popup.show();
+                }
             }
         };
+        placesView.menuDots.setOnClickListener(onClickListener);
+        placesView.tableLayout.setOnClickListener(onClickListener);
+        placesView.placeImage.setOnClickListener(onClickListener);
+        placesView.nameText.setOnClickListener(onClickListener);
+
+        // Load Images
+        final Target target = new ResizableTarget(placesView.placeImage);
         placesView.placeImage.setTag(target);
 
         Picasso.with(mContext)
@@ -157,11 +164,4 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
         return mPlaces.size();
     }
 
-    @Override
-    public void onClick(View view) {
-        switch(view.getId()) {
-            case R.id.placeImage: case R.id.nameText:
-
-        }
-    }
 }

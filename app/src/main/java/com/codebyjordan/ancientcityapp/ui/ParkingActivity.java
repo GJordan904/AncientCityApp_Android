@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import com.codebyjordan.ancientcityapp.R;
 import com.codebyjordan.ancientcityapp.dialogs.ParkingDialog;
 import com.codebyjordan.ancientcityapp.maps.BaseMapActivity;
@@ -36,10 +37,13 @@ public class ParkingActivity extends BaseMapActivity implements ClosestParkingRe
     private Polygon mClosestParkingPoly;
     private Polyline mDirectionsLine;
     private Marker mClosestParkingMark;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mProgressBar = (ProgressBar) findViewById(R.id.parkingLoading);
+
         mLayers = new HashMap<>();
     }
 
@@ -76,6 +80,7 @@ public class ParkingActivity extends BaseMapActivity implements ClosestParkingRe
         mClosestParkingPoly = polygon;
         mDirectionsLine = line;
         mClosestParkingMark = marker;
+        mProgressBar.setVisibility(View.GONE);
     }
 
     public void onCheckBoxClicked(View view) {
@@ -94,6 +99,7 @@ public class ParkingActivity extends BaseMapActivity implements ClosestParkingRe
                 break;
             case R.id.cbNearest:
                 if(checked) {
+                    mProgressBar.setVisibility(View.VISIBLE);
                     Location lastKnown = getLastLocation();
                     new DirectionsToParking(this, this,  mMap, lastKnown, mLayers).execute();
                 }else{

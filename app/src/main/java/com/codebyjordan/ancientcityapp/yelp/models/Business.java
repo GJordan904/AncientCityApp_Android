@@ -23,6 +23,14 @@ public class Business implements Parcelable {
     boolean is_closed;
     BusinessLocation location;
 
+    public String formattedPhone() {
+        StringBuilder builder = new StringBuilder(getPhone())
+                .insert(0, '(')
+                .insert(4, ')')
+                .insert(8, '-');
+        return builder.toString();
+    }
+
     public String getId() {
         return id;
     }

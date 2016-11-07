@@ -14,7 +14,7 @@ public class YelpApi {
     private String[] mFilters;
     private int mFilterIndex;
 
-    public YelpApi(String searchTerm, int index, String[] filters){
+    public YelpApi(int index, String searchTerm, String[] filters){
         mSearchTerm = searchTerm;
         mFilterIndex = index;
         mFilters = filters;
@@ -23,13 +23,14 @@ public class YelpApi {
 
     public YelpApi(String id) {
         mSearchId = id;
+        mClient = createClient();
     }
 
     public OkHttpClient getClient() {
         return mClient;
     }
 
-    public Call createCall() {
+    public Call createSearchCall() {
         // Build URL
         String SEARCH_PATH = "v2/search";
         HttpUrl url = new HttpUrl.Builder()
@@ -47,11 +48,11 @@ public class YelpApi {
                 .url(url)
                 .build();
 
-        // Make Call
+        // Return Call
         return mClient.newCall(request);
     }
 
-    public void lookupBusiness(Callback callback) {
+    public Call createBusinessCall() {
         // Build URL
         String BUSINESS_PATH = "v2/business/";
         HttpUrl url = new HttpUrl.Builder()
@@ -66,8 +67,8 @@ public class YelpApi {
                 .url(url)
                 .build();
 
-        // Make Call
-        mClient.newCall(request).enqueue(callback);
+        // Return Call
+        return mClient.newCall(request);
     }
 
     private OkHttpClient createClient() {

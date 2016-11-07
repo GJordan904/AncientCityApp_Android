@@ -18,7 +18,6 @@
               android:id="@+id/map"
               tools:context="com.codebyjordan.ancientcityapp.ui.ParkingActivity"
               class="com.google.android.gms.maps.SupportMapFragment"
-              android:name="com.codebyjordan.ancientcityapp.ui.PlacesFragment"
               android:layout_below="@+id/toolbarMain"
               android:layout_alignParentLeft="true"
               android:layout_alignParentStart="true"/>
@@ -43,5 +42,15 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:elevation="4dp"/>
+
+    <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/parkingLoading"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:indeterminate="true"
+            android:visibility="gone"/>
 
 </RelativeLayout>

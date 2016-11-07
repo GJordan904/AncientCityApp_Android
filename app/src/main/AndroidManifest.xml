@@ -13,11 +13,18 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".App">
+        android:theme="@style/AppTheme" >
+
+        <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
+        <meta-data
+                android:name="com.google.android.maps.v2.API_KEY"
+                android:value="@string/google_maps_key" />
 
         <activity
             android:name=".ui.MainActivity"
@@ -28,37 +35,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.PlacesActivity"
-            android:label="@string/title_activity_food_drink"
-            android:parentActivityName=".ui.MainActivity" >
+            android:label="@string/title_activity_places"
+            android:parentActivityName=".ui.MainActivity"
+            android:launchMode="singleTop" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codebyjordan.ancientcityapp.ui.MainActivity" />
         </activity>
-        <activity
-            android:name=".ui.LodgingActivity"
-            android:label="@string/title_activity_lodging"
-            android:parentActivityName=".ui.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.codebyjordan.ancientcityapp.ui.MainActivity" />
-        </activity>
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-        <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="@string/google_maps_key" />
 
         <activity
             android:name=".ui.ParkingActivity"
-            android:label="@string/title_activity_parking">
+            android:label="@string/title_activity_parking" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codebyjordan.ancientcityapp.ui.MainActivity" />
         </activity>
+
         <activity
             android:name=".ui.MapActivity"
             android:label="@string/title_activity_map"
@@ -67,6 +62,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.codebyjordan.ancientcityapp.ui.MainActivity" />
         </activity>
+
+        <activity
+            android:name=".ui.PlaceDetailActivity"
+            android:label="@string/title_activity_places_detail"
+            android:parentActivityName=".ui.PlacesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codebyjordan.ancientcityapp.ui.PlacesActivity" />
+        </activity>
+
     </application>
 
 </manifest>

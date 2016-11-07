@@ -30,6 +30,14 @@ public class BusinessResponse {
         return gson.fromJson(response, BusinessResponse.class);
     }
 
+    public String formattedPhone() {
+        StringBuilder builder = new StringBuilder(getPhone())
+                .insert(0, '(')
+                .insert(4, ')')
+                .insert(8, '-');
+        return builder.toString();
+    }
+
     public boolean is_claimed() {
         return is_claimed;
     }
