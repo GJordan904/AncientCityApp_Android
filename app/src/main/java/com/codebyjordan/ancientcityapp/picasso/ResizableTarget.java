@@ -18,7 +18,6 @@ public class ResizableTarget implements Target {
     @Override
     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
         float ratio = (float) bitmap.getHeight() / (float) bitmap.getWidth();
-        Log.v("RecyclerAdapter", "Aspect Ratio: " + ratio);
         mView.setAspectRatio(ratio);
         mView.setImageBitmap(bitmap);
     }

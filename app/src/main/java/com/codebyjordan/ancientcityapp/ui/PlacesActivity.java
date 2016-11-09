@@ -1,5 +1,6 @@
 package com.codebyjordan.ancientcityapp.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -20,11 +21,13 @@ import android.widget.ProgressBar;
 import com.codebyjordan.ancientcityapp.R;
 import com.codebyjordan.ancientcityapp.adapters.PlacesRecyclerAdapter;
 import com.codebyjordan.ancientcityapp.decorators.MarginItemDecoration;
+import com.codebyjordan.ancientcityapp.okhttp.OkHttpUtil;
 import com.codebyjordan.ancientcityapp.yelp.YelpApi;
 import com.codebyjordan.ancientcityapp.yelp.models.Business;
 import com.codebyjordan.ancientcityapp.yelp.models.SearchResponse;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 import java.io.IOException;
@@ -170,7 +173,8 @@ public class PlacesActivity extends AppCompatActivity {
 
         private void lookupPlaces(int index, String term, String[] filters) {
             // Call google
-            YelpApi api = new YelpApi(index, term, filters);
+            OkHttpClient client = OkHttpUtil.getOAuthClient(getActivity());
+            YelpApi api = new YelpApi(index, term, filters, client);
             mCall = api.createSearchCall();
             mCall.enqueue(new Callback() {
                 @Override

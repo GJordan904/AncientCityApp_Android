@@ -24,10 +24,7 @@ public class FitToViewTransformation implements Transformation {
         }
 
         int targetWidth = mView.getWidth();
-        Log.v("FitToView:", "Target width: " + targetWidth);
-
         int targetHeight = (int) (targetWidth * aspectRatio);
-
 
         Bitmap result = Bitmap.createScaledBitmap(source, targetWidth, targetHeight, false);
         if (result != source) {

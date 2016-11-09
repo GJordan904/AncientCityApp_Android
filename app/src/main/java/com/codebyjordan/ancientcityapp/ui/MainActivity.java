@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         attractions.setOnClickListener(new PlacesListOnClick(MainActivity.this, PlacesActivity.class, 2));
 
         parking.setOnClickListener(new StartActivityOnClick(MainActivity.this, ParkingActivity.class));
+        weather.setOnClickListener(new StartActivityOnClick(MainActivity.this, WeatherActivity.class));
         map.setOnClickListener(new StartActivityOnClick(MainActivity.this, MapActivity.class));
     }
 }

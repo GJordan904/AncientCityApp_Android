@@ -14,21 +14,18 @@ public class YelpApi {
     private String[] mFilters;
     private int mFilterIndex;
 
-    public YelpApi(int index, String searchTerm, String[] filters){
+    public YelpApi(int index, String searchTerm, String[] filters, OkHttpClient client){
         mSearchTerm = searchTerm;
         mFilterIndex = index;
         mFilters = filters;
-        mClient = createClient();
+        mClient = client;
     }
 
-    public YelpApi(String id) {
+    public YelpApi(String id, OkHttpClient client) {
         mSearchId = id;
-        mClient = createClient();
+        mClient = client;
     }
 
-    public OkHttpClient getClient() {
-        return mClient;
-    }
 
     public Call createSearchCall() {
         // Build URL
@@ -71,17 +68,4 @@ public class YelpApi {
         return mClient.newCall(request);
     }
 
-    private OkHttpClient createClient() {
-        String CONSUMER_KEY = "iwj1fWu6Csx9mN4kEzX13A";
-        String CONSUMER_SECRET = "oZwpXvfCyXIXoHLny0x3NzNNGRo";
-        String TOKEN = "32hKpSefyBO87bmBC3ZMAeZOsFz8acBM";
-        String TOKEN_SECRET = "adq4S57iQJcv8AGO0Nsb8FUc9s8";
-
-        OkHttpOAuthConsumer consumer = new OkHttpOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
-        consumer.setTokenWithSecret(TOKEN, TOKEN_SECRET);
-
-        return new OkHttpClient.Builder()
-                .addInterceptor(new SigningInterceptor(consumer))
-                .build();
-    }
 }

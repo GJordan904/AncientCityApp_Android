@@ -18,12 +18,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import com.codebyjordan.ancientcityapp.R;
 import com.codebyjordan.ancientcityapp.custviews.DynamicHeightImageView;
+import com.codebyjordan.ancientcityapp.okhttp.OkHttpUtil;
 import com.codebyjordan.ancientcityapp.picasso.FitToViewTransformation;
 import com.codebyjordan.ancientcityapp.picasso.ResizableTarget;
 import com.codebyjordan.ancientcityapp.yelp.YelpApi;
@@ -34,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import java.io.IOException;
 
@@ -146,7 +146,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_places_detail, container, false);
+            View view = inflater.inflate(R.layout.fragment_place_detail, container, false);
 
             mProgressBar = (ProgressBar) view.findViewById(R.id.detailProgressBar);
             mPlaceImage = (DynamicHeightImageView) view.findViewById(R.id.placeDetailsImage);
@@ -178,7 +178,8 @@ public class PlaceDetailActivity extends AppCompatActivity {
         }
 
         private void getDetails() {
-            YelpApi api = new YelpApi(mBusinessId);
+            OkHttpClient client = OkHttpUtil.getOAuthClient(getActivity());
+            YelpApi api = new YelpApi(mBusinessId, client);
             mCall = api.createBusinessCall();
             mCall.enqueue(new Callback() {
                 @Override
@@ -247,7 +248,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_places_map, container, false);
+            View view = inflater.inflate(R.layout.fragment_place_map, container, false);
 
             SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                     .findFragmentById(R.id.detailsMap);

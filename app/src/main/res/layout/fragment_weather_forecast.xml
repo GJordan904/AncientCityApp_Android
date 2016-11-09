@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/back_cloudy_day"
+                android:id="@+id/mainRelative">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="75\u00B0"
+            android:id="@+id/tempText"
+            android:textSize="72sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/feelsLikeText"
+            android:layout_alignEnd="@+id/feelsLikeText"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Clear"
+            android:id="@+id/conditionText"
+            android:layout_below="@+id/tempText"
+            android:layout_centerHorizontal="true"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Feels Like 82\u00B0"
+            android:id="@+id/feelsLikeText"
+            android:layout_below="@+id/conditionText"
+            android:layout_centerHorizontal="true"/>
+
+    <android.support.percent.PercentRelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/feelsLikeText"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/percentRelative">
+
+        <android.widget.RelativeLayout
+                app:layout_widthPercent="33.3%"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/precipRelative">
+
+            <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chancePrecipImage"
+                    android:background="@drawable/icon_precipitation"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_centerHorizontal="true"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="50%"
+                    android:id="@+id/chancePrecipText"
+                    android:layout_below="@+id/chancePrecipImage"
+                    android:layout_alignRight="@+id/chancePrecipImage"
+                    android:layout_alignEnd="@+id/chancePrecipImage"/>
+
+        </android.widget.RelativeLayout>
+
+        <View
+                android:layout_width="2dp"
+                android:layout_height="50dp"
+                android:id="@+id/verticalBar1"
+                android:layout_alignParentTop="true"
+                android:layout_alignRight="@+id/precipRelative"
+                android:layout_alignEnd="@+id/precipRelative"
+                android:layout_marginLeft="25dp"
+                android:background="#ffffff"/>
+
+        <android.widget.RelativeLayout
+                app:layout_widthPercent="33.3%"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tempRelative"
+                android:layout_alignLeft="@+id/verticalBar1">
+
+            <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tempImage"
+                    android:background="@drawable/icon_therm_nice"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_centerHorizontal="true"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="77\u00B0 - 85\u00B0"
+                    android:id="@+id/highLowText"
+                    android:layout_below="@+id/tempImage"
+                    android:layout_centerHorizontal="true"/>
+
+        </android.widget.RelativeLayout>
+
+        <View
+                android:layout_width="2dp"
+                android:layout_height="50dp"
+                android:id="@+id/verticalBar2"
+                android:layout_alignParentTop="true"
+                android:layout_alignRight="@+id/tempRelative"
+                android:layout_alignEnd="@+id/tempRelative"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="10dp"
+                android:background="#ffffff"/>
+
+        <android.widget.RelativeLayout
+                app:layout_widthPercent="33.3%"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/windRelative"
+                android:layout_alignLeft="@+id/verticalBar2">
+
+            <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/windImage"
+                    android:background="@drawable/icon_wind"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_centerHorizontal="true"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="5mph"
+                    android:id="@+id/windText"
+                    android:layout_below="@+id/windImage"
+                    android:layout_centerHorizontal="true"/>
+
+        </android.widget.RelativeLayout>
+
+        <android.support.v7.widget.CardView
+                android:id="@+id/tomorrowCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/verticalBar2"
+                android:layout_marginTop="10dp"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardBackgroundColor="@color/my_transparentBlack">
+
+            <android.widget.RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tomRelative"
+                    android:padding="10dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tomImage"
+                        android:background="@drawable/icon_mostly_sunny_day"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Saturday"
+                        android:id="@+id/tomText"
+                        android:layout_toRightOf="@+id/tomImage"
+                        android:layout_centerVertical="true"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="85\u00B0"
+                        android:id="@+id/tomHigh"
+                        android:layout_toLeftOf="@+id/tomLow"
+                        android:layout_centerVertical="true"
+                        android:textIsSelectable="false"
+                        android:textStyle="bold"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="75\u00B0"
+                        android:id="@+id/tomLow"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"/>
+
+            </android.widget.RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+                android:id="@+id/dayAfterCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tomorrowCard"
+                android:layout_marginTop="10dp"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardBackgroundColor="@color/my_transparentBlack">
+
+            <android.widget.RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dayAfterRelative"
+                    android:padding="10dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/dayAfterImage"
+                        android:background="@drawable/icon_mostly_sunny_day"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Saturday"
+                        android:id="@+id/dayAfterext"
+                        android:layout_toRightOf="@+id/dayAfterImage"
+                        android:layout_centerVertical="true"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="85\u00B0"
+                        android:id="@+id/dayAfterHigh"
+                        android:layout_toLeftOf="@+id/dayAfterLow"
+                        android:layout_centerVertical="true"
+                        android:textIsSelectable="false"
+                        android:textStyle="bold"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="75\u00B0"
+                        android:id="@+id/dayAfterLow"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"/>
+
+            </android.widget.RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+                android:id="@+id/thirdDayCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dayAfterCard"
+                android:layout_marginTop="10dp"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardBackgroundColor="@color/my_transparentBlack">
+
+            <android.widget.RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/thirdDayRelative"
+                    android:padding="10dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/thirdDayImage"
+                        android:background="@drawable/icon_mostly_sunny_day"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Saturday"
+                        android:id="@+id/thirdDayText"
+                        android:layout_toRightOf="@+id/thirdDayImage"
+                        android:layout_centerVertical="true"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="85\u00B0"
+                        android:id="@+id/thirdDayHigh"
+                        android:layout_toLeftOf="@+id/thirdDayLow"
+                        android:layout_centerVertical="true"
+                        android:textIsSelectable="false"
+                        android:textStyle="bold"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="75\u00B0"
+                        android:id="@+id/thirdDayLow"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"/>
+
+            </android.widget.RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="The Forecast"
+                android:id="@+id/forecastText"
+                android:layout_below="@+id/thirdDayCard"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"/>
+
+    </android.support.percent.PercentRelativeLayout>
+
+</RelativeLayout>
