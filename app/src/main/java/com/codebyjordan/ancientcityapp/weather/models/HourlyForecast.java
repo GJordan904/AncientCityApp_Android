@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class HourlyForecast {
 
-    @SerializedName("ForecastTime")
+    @SerializedName("FCTTIME")
     @Expose
-    private ForecastTime fCTTIME;
+    private ForecastTime forecastTime;
     @SerializedName("temp")
     @Expose
     private Temp temp;
@@ -72,10 +72,10 @@ public class HourlyForecast {
      * @param humidity
      * @param dewpoint
      * @param temp
-     * @param fCTTIME
+     * @param forecastTime
      */
-    public HourlyForecast(ForecastTime fCTTIME, Temp temp, Dewpoint dewpoint, String condition, String icon, String sky, WindSpeed windSpeed, WindDirection windDirection, String wx, String uvi, String humidity, FeelsLike feelsLike, Precipitation precipitation, String pop) {
-        this.fCTTIME = fCTTIME;
+    public HourlyForecast(ForecastTime forecastTime, Temp temp, Dewpoint dewpoint, String condition, String icon, String sky, WindSpeed windSpeed, WindDirection windDirection, String wx, String uvi, String humidity, FeelsLike feelsLike, Precipitation precipitation, String pop) {
+        this.forecastTime = forecastTime;
         this.temp = temp;
         this.dewpoint = dewpoint;
         this.condition = condition;
@@ -94,19 +94,19 @@ public class HourlyForecast {
     /**
      * 
      * @return
-     *     The fCTTIME
+     *     The forecastTime
      */
-    public ForecastTime getFCTTIME() {
-        return fCTTIME;
+    public ForecastTime getForecastTime() {
+        return forecastTime;
     }
 
     /**
      * 
-     * @param fCTTIME
+     * @param forecastTime
      *     The ForecastTime
      */
-    public void setFCTTIME(ForecastTime fCTTIME) {
-        this.fCTTIME = fCTTIME;
+    public void setForecastTime(ForecastTime forecastTime) {
+        this.forecastTime = forecastTime;
     }
 
     /**

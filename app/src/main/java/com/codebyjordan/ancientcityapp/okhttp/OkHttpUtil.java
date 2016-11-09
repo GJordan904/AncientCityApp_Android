@@ -13,17 +13,6 @@ import java.io.IOException;
 public class OkHttpUtil {
 
     private static final int CACHE_SIZE = 10 * 1024 * 1024;
-    private static final Interceptor REWRITE_CACHE_CONTROL = new Interceptor() {
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            Response response = chain.proceed(chain.request());
-
-            return response.newBuilder()
-                    .removeHeader("Pragma")
-                    .header("Cache-Control", "public, max-age=" + 60 * 60 * 24)
-                    .build();
-        }
-    };
 
     public static OkHttpClient getOAuthClient(final Context context) {
         // Setup OAuth Client
@@ -42,24 +31,8 @@ public class OkHttpUtil {
         return new OkHttpClient.Builder()
                 .cache(cache)
                 .addInterceptor(new SigningInterceptor(consumer))
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request request = chain.request();
-                        if(isNetworkAvailable(context)) {
-                            request = request.newBuilder()
-                                    .header("Cache-Control", "public, max-age=" + 60 * 60 * 24)
-                                    .build();
-                        }else{
-                            request = request
-                                    .newBuilder()
-                                    .header("Cache-Control", "public, only-if-cached")
-                                    .build();
-                        }
-                        return chain.proceed(request);
-                    }
-                })
-                .addNetworkInterceptor(REWRITE_CACHE_CONTROL)
+                .addInterceptor(loadCacheOffline(context, 60*60*24))
+                .addNetworkInterceptor(rewriteCacheControl(60*60*24))
                 .build();
     }
 
@@ -70,25 +43,43 @@ public class OkHttpUtil {
 
         return new OkHttpClient.Builder()
                 .cache(cache)
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request request = chain.request();
-                        if(isNetworkAvailable(context)) {
-                            request = request.newBuilder()
-                                    .header("Cache-Control", "public, max-age=" + 60 * 60)
-                                    .build();
-                        }else{
-                            request = request
-                                    .newBuilder()
-                                    .header("Cache-Control", "public, only-if-cached")
-                                    .build();
-                        }
-                        return chain.proceed(request);
-                    }
-                })
-                .addNetworkInterceptor(REWRITE_CACHE_CONTROL)
+                .addInterceptor(loadCacheOffline(context, 60*60))
+                .addNetworkInterceptor(rewriteCacheControl(60*60))
                 .build();
+    }
+
+    private static Interceptor loadCacheOffline(final Context context, final int cacheSize) {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+                if(isNetworkAvailable(context)) {
+                    request = request.newBuilder()
+                            .header("Cache-Control", "public, max-age=" + cacheSize)
+                            .build();
+                }else{
+                    request = request
+                            .newBuilder()
+                            .header("Cache-Control", "public, only-if-cached")
+                            .build();
+                }
+                return chain.proceed(request);
+            }
+        };
+    }
+
+    private static Interceptor rewriteCacheControl(final int cacheSize) {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Response response = chain.proceed(chain.request());
+
+                return response.newBuilder()
+                        .removeHeader("Pragma")
+                        .header("Cache-Control", "public, max-age=" + cacheSize)
+                        .build();
+            }
+        };
     }
 
     public static boolean isNetworkAvailable(Context context) {

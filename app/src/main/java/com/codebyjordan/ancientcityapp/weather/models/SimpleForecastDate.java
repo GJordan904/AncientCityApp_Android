@@ -15,6 +15,9 @@ public class SimpleForecastDate {
     @SerializedName("year")
     @Expose
     private Integer year;
+    @SerializedName("hour")
+    @Expose
+    private int hour;
     @SerializedName("weekday")
     @Expose
     private String weekday;
@@ -33,11 +36,12 @@ public class SimpleForecastDate {
      * @param year
      * @param day
      */
-    public SimpleForecastDate(Integer day, Integer month, Integer year, String weekday) {
+    public SimpleForecastDate(Integer day, Integer month, Integer year, String weekday, int hour) {
         this.day = day;
         this.month = month;
         this.year = year;
         this.weekday = weekday;
+        this.hour = hour;
     }
 
     /**
@@ -112,4 +116,11 @@ public class SimpleForecastDate {
         this.weekday = weekday;
     }
 
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
 }

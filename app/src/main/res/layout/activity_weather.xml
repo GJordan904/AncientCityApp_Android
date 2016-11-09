@@ -3,7 +3,8 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.codebyjordan.ancientcityapp.ui.WeatherActivity">
+                tools:context="com.codebyjordan.ancientcityapp.ui.WeatherActivity"
+                android:id="@+id/mainRelative">
 
     <include
             layout="@layout/toolbar_main"
@@ -29,5 +30,12 @@
             android:layout_below="@+id/weatherTabs"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"/>
+
+    <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/progressBar"
+            android:background="@color/my_earth"
+            android:visibility="visible"/>
 
 </RelativeLayout>
