@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.codebyjordan.ancientcityapp.R;
 import com.codebyjordan.ancientcityapp.custviews.DynamicHeightImageView;
+import com.codebyjordan.ancientcityapp.maps.MapTool;
 import com.codebyjordan.ancientcityapp.okhttp.OkHttpUtil;
 import com.codebyjordan.ancientcityapp.picasso.FitToViewTransformation;
 import com.codebyjordan.ancientcityapp.picasso.ResizableTarget;
@@ -236,6 +237,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
     public static class PlaceDetailMap extends Fragment implements OnMapReadyCallback {
 
         private static GoogleMap mMap;
+        private static MapTool mapTool;
 
         public PlaceDetailMap(){}
 
@@ -260,25 +262,10 @@ public class PlaceDetailActivity extends AppCompatActivity {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             mMap = googleMap;
+            mapTool = new MapTool(mMap, getActivity());
 
-            // Disable some ui settings
-            mMap.setBuildingsEnabled(false);
-            UiSettings settings =  mMap.getUiSettings();
-            settings.setCompassEnabled(false);
-            settings.setMyLocationButtonEnabled(false);
-            settings.setMapToolbarEnabled(false);
-
-            // Style Map
-            try {
-                boolean success = mMap.setMapStyle(
-                        MapStyleOptions.loadRawResourceStyle(mContext, R.raw.map_style));
-
-                if (!success) {
-                    Log.e("MapActivityRaw", "Style parsing failed");
-                }
-            } catch (Resources.NotFoundException e) {
-                Log.e("MapActivityRaw", "Can't find style: ", e);
-            }
+            mapTool.setupUi();
+            mapTool.styleMap();
         }
 
         @Override
@@ -297,12 +284,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
             Marker placeMarker = mMap.addMarker(markerOptions);
 
             // Move Camera
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(position)
-                    .zoom(15)
-                    .tilt(45)
-                    .build();
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            mapTool.moveCamera(position, 15, 45);
         }
     }
 }

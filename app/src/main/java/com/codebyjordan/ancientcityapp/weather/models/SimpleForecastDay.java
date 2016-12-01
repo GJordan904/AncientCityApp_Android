@@ -24,6 +24,9 @@ public class SimpleForecastDay {
     @SerializedName("icon")
     @Expose
     private String icon;
+    @SerializedName("pop")
+    @Expose
+    private int pop;
     @SerializedName("qpf_allday")
     @Expose
     private SFPrecipitation precipitation;
@@ -72,13 +75,14 @@ public class SimpleForecastDay {
      * @param date
      * @param maxhumidity
      */
-    public SimpleForecastDay(SimpleForecastDate date, Integer period, High high, Low low, String conditions, String icon, SFPrecipitation SFPrecipitation, PrecipitationDay precipitationDay, PrecipitationNight precipitationNight, MaxWind maxWind, AverageWind averageWind, Integer avehumidity, Integer maxhumidity, Integer minhumidity) {
+    public SimpleForecastDay(SimpleForecastDate date, Integer period, High high, Low low, String conditions, String icon, int pop, SFPrecipitation SFPrecipitation, PrecipitationDay precipitationDay, PrecipitationNight precipitationNight, MaxWind maxWind, AverageWind averageWind, Integer avehumidity, Integer maxhumidity, Integer minhumidity) {
         this.date = date;
         this.period = period;
         this.high = high;
         this.low = low;
         this.conditions = conditions;
         this.icon = icon;
+        this.pop = pop;
         this.precipitation = SFPrecipitation;
         this.precipitationDay = precipitationDay;
         this.precipitationNight = precipitationNight;
@@ -185,6 +189,14 @@ public class SimpleForecastDay {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public int getPop() {
+        return pop;
+    }
+
+    public void setPop(int pop) {
+        this.pop = pop;
     }
 
     /**

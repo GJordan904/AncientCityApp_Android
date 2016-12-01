@@ -22,15 +22,6 @@
               android:layout_alignParentLeft="true"
               android:layout_alignParentStart="true"/>
 
-    <FrameLayout
-            android:id="@+id/checkbox_placeholder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbarMain"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
-    </FrameLayout>
-
     <Button
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -52,5 +43,11 @@
             android:layout_centerHorizontal="true"
             android:indeterminate="true"
             android:visibility="gone"/>
+
+    <FrameLayout
+            android:id="@+id/menu_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    </FrameLayout>
 
 </RelativeLayout>

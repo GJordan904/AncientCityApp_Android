@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/todayCardview"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="4dp"
+        card_view:cardCornerRadius="5dp"
+        card_view:contentPadding="10dp"
+        card_view:cardBackgroundColor="@color/my_transparent_grey"
+        card_view:cardElevation="0dp">
+
+    <android.widget.RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/todayRelative">
+
+        <ImageView
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:id="@+id/conditionIcon"
+                android:layout_centerVertical="true"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Today, November 9"
+                android:id="@+id/forecastDate"
+                android:layout_toRightOf="@+id/conditionIcon"
+                android:layout_alignTop="@+id/conditionIcon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/primary"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Clear"
+                android:id="@+id/conditionText"
+                android:layout_toRightOf="@+id/conditionIcon"
+                android:layout_below="@+id/forecastDate"
+                android:layout_marginLeft="10dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/forecastTemp"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dp"
+                android:text="80\u00B0/72\u00B0"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+        <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:id="@+id/precipIcon"
+                android:layout_toLeftOf="@+id/precipText"
+                android:layout_below="@+id/forecastTemp"
+                android:layout_alignTop="@+id/precipText"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/icon_precipitation"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/precipText"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/forecastTemp"
+                android:text="75%"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    </android.widget.RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -56,5 +56,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_weather">Weather</string>
+    <string name="parking_menu_title">Parking Menu</string>
 
 </resources>

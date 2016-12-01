@@ -33,7 +33,6 @@ public class DirectionsToParking extends AsyncTask<Void, Void, Route>{
     private HashMap<String, KmlPolygon> mPolygons;
     private LatLng mOrigin;
     private String mClosestParking;
-    private boolean mDidReturnPoints = false;
     private LatLng mClosestCenter;
     private ClosestParkingResponse mFinished;
     private MyKmlLayers mMyKmlLayers;
@@ -98,7 +97,6 @@ public class DirectionsToParking extends AsyncTask<Void, Void, Route>{
     protected void onPostExecute(Route route) {
         super.onPostExecute(route);
         // Draw Polyline showing Directions to Parking
-        Log.v(TAG, "Post Execute value route: " + route);
         ArrayList<LatLng> directionPoints = route.getLegList().get(0).getDirectionPoint();
         PolylineOptions lineOptions = DirectionConverter.createPolyline(mContext, directionPoints, 5, Color.RED);
         Polyline directionsLine = mMap.addPolyline(lineOptions);

@@ -1,6 +1,5 @@
 package com.codebyjordan.ancientcityapp.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -20,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import com.codebyjordan.ancientcityapp.R;
 import com.codebyjordan.ancientcityapp.adapters.PlacesRecyclerAdapter;
-import com.codebyjordan.ancientcityapp.decorators.MarginItemDecoration;
+import com.codebyjordan.ancientcityapp.decorators.GridMarginDecorator;
 import com.codebyjordan.ancientcityapp.okhttp.OkHttpUtil;
 import com.codebyjordan.ancientcityapp.yelp.YelpApi;
 import com.codebyjordan.ancientcityapp.yelp.models.Business;
@@ -156,7 +155,7 @@ public class PlacesActivity extends AppCompatActivity {
             }
 
             // Set custom decoration for margins
-            MarginItemDecoration decoration = new MarginItemDecoration(10);
+            GridMarginDecorator decoration = new GridMarginDecorator(10);
             recyclerView.addItemDecoration(decoration);
             // Set adapter
             mAdapter = new PlacesRecyclerAdapter(view.getContext(), mGridItems);

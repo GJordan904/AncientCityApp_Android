@@ -1,17 +1,17 @@
 package com.codebyjordan.ancientcityapp.ui;
 
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Display;
@@ -23,8 +23,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.codebyjordan.ancientcityapp.R;
+import com.codebyjordan.ancientcityapp.adapters.TenDayRecyclerAdapter;
 import com.codebyjordan.ancientcityapp.okhttp.OkHttpUtil;
 import com.codebyjordan.ancientcityapp.weather.WeatherApi;
+import com.codebyjordan.ancientcityapp.weather.WeatherHelper;
 import com.codebyjordan.ancientcityapp.weather.models.*;
 import com.plattysoft.leonids.ParticleSystem;
 import okhttp3.Call;
@@ -33,15 +35,18 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherActivity extends AppCompatActivity {
 
-    private static AllWeather mWeather;
-    private static String mCondition;
+    private static AllWeather weather;
+    private static List<SimpleForecastDay> simpleForecast = new ArrayList<>();
+    private static String condition;
     private static int mForecastHour;
-    private static ProgressBar mProgressBar;
-    private static RelativeLayout mMainRelative;
+    private static ProgressBar progressBar;
+    private static ViewPager viewPager;
+    private static TenDayRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,19 +62,20 @@ public class WeatherActivity extends AppCompatActivity {
 
         // Setup Fragment Manager
         WeatherPagerAdapter adapter = new WeatherPagerAdapter(getSupportFragmentManager());
-        ViewPager pager = (ViewPager) findViewById(R.id.weatherPager);
-        pager.setAdapter(adapter);
+        viewPager = (ViewPager) findViewById(R.id.weatherPager);
+        viewPager.setAdapter(adapter);
 
         // Setup Tabs
         TabLayout tabLayout = (TabLayout) findViewById(R.id.weatherTabs);
-        tabLayout.setupWithViewPager(pager);
+        tabLayout.setupWithViewPager(viewPager);
 
-        // Setup View Variables
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mMainRelative = (RelativeLayout) findViewById(R.id.mainRelative);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
 
     }
-
+    //
+    // Pager Adapter
+    //
     public class WeatherPagerAdapter extends FragmentStatePagerAdapter{
 
         public WeatherPagerAdapter(FragmentManager fm) {
@@ -83,13 +89,16 @@ public class WeatherActivity extends AppCompatActivity {
                 case 0:
                     fragment = new ForecastFragment();
                     break;
+                case 1:
+                    fragment = new TenDayFragment();
+                    break;
             }
             return fragment;
         }
 
         @Override
         public int getCount() {
-            return 1;
+            return 2;
         }
 
         @Override
@@ -106,7 +115,9 @@ public class WeatherActivity extends AppCompatActivity {
             return title;
         }
     }
-
+    //
+    // Forecast Fragment
+    //
     public static class ForecastFragment extends Fragment {
 
         private Call mCall;
@@ -191,9 +202,11 @@ public class WeatherActivity extends AppCompatActivity {
                 public void onResponse(Call call, Response response) throws IOException {
                     try {
                         if (response.isSuccessful()) {
-                            mWeather = AllWeather.parseJson(response.body().string());
-                            mCondition = mWeather.getHourlyForecast().get(0).getIcon();
-                            mForecastHour = Integer.parseInt(mWeather.getHourlyForecast().get(0).getForecastTime().getHour());
+                            weather = AllWeather.parseJson(response.body().string());
+                            condition = weather.getHourlyForecast().get(0).getIcon();
+                            List<SimpleForecastDay> forecast = weather.getForecast().getSimpleforecast().getForecastday();
+                            for(SimpleForecastDay day : forecast) simpleForecast.add(day);
+                            mForecastHour = Integer.parseInt(weather.getHourlyForecast().get(0).getForecastTime().getHour());
 
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
@@ -201,7 +214,8 @@ public class WeatherActivity extends AppCompatActivity {
                                     setBackground();
                                     setRainAnimation();
                                     setUiElements();
-                                    mProgressBar.setVisibility(View.GONE);
+                                    adapter.notifyDataSetChanged();
+                                    progressBar.setVisibility(View.GONE);
                                 }
                             });
 
@@ -218,45 +232,45 @@ public class WeatherActivity extends AppCompatActivity {
         private void setBackground() {
             // Set Background according to weather
             if(mForecastHour >= 6 && mForecastHour <= 19) {
-                switch(mCondition) {
+                switch(condition) {
                     case "clear":case "sunny":
-                        mMainRelative.setBackgroundResource(R.drawable.back_clear_day);
+                        viewPager.setBackgroundResource(R.drawable.back_clear_day);
                         break;
                     case "cloudy":case "rain":
                     case "tstorms":case "fog":
                     case "chancerain":case "chancetstorms":
-                        mMainRelative.setBackgroundResource(R.drawable.back_cloudy_day);
+                        viewPager.setBackgroundResource(R.drawable.back_cloudy_day);
                         break;
                     case "mostlycloudy":case "mostlysunny":
                     case "partlycloudy":case "partlysunny":
-                        mMainRelative.setBackgroundResource(R.drawable.back_partly_day);
+                        viewPager.setBackgroundResource(R.drawable.back_partly_day);
                         break;
                     default:
-                        mMainRelative.setBackgroundResource(R.drawable.back_partly_day);
+                        viewPager.setBackgroundResource(R.drawable.back_partly_day);
                 }
             }else {
-                switch(mCondition) {
+                switch(condition) {
                     case "clear":case "sunny":
-                        mMainRelative.setBackgroundResource(R.drawable.back_clear_night);
+                        viewPager.setBackgroundResource(R.drawable.back_clear_night);
                         break;
                     case "cloudy":case "rain":
                     case "tstorms":case "fog":
                     case "chancerain":case "chancetstorms":
-                        mMainRelative.setBackgroundResource(R.drawable.back_cloudy_night);
+                        viewPager.setBackgroundResource(R.drawable.back_cloudy_night);
                         break;
                     case "mostlycloudy":case "mostlysunny":
                     case "partlycloudy":case "partlysunny":
-                        mMainRelative.setBackgroundResource(R.drawable.back_partly_night);
+                        viewPager.setBackgroundResource(R.drawable.back_partly_night);
                         break;
                     default:
-                        mMainRelative.setBackgroundResource(R.drawable.back_partly_night);
+                        viewPager.setBackgroundResource(R.drawable.back_partly_night);
                 }
             }
         }
 
         private void setRainAnimation() {
             // Show rain if raining
-            switch (mCondition) {
+            switch (condition) {
                 case "rain":case "tstorms":
                 case "nt_rain":case "nt_tstorms":
                     // Get Screen Width to Find corner coordinates
@@ -281,35 +295,36 @@ public class WeatherActivity extends AppCompatActivity {
         }
 
         private void setUiElements() {
-            HourlyForecast rightNow = mWeather.getHourlyForecast().get(0);
-            List<ForecastDay> txtForecast = mWeather.getForecast().getTxtForecast().getForecastday();
-            SimpleForecastDay today = mWeather.getForecast().getSimpleforecast().getForecastday().get(0);
-            SimpleForecastDay tomorrow = mWeather.getForecast().getSimpleforecast().getForecastday().get(1);
-            SimpleForecastDay dayAfter = mWeather.getForecast().getSimpleforecast().getForecastday().get(2);
-            SimpleForecastDay thirdDay = mWeather.getForecast().getSimpleforecast().getForecastday().get(3);
+            WeatherHelper helper = new WeatherHelper(getActivity());
+            HourlyForecast rightNow = weather.getHourlyForecast().get(0);
+            List<ForecastDay> txtForecast = weather.getForecast().getTxtForecast().getForecastday();
+            SimpleForecastDay today = simpleForecast.get(0);
+            SimpleForecastDay tomorrow = simpleForecast.get(1);
+            SimpleForecastDay dayAfter = simpleForecast.get(2);
+            SimpleForecastDay thirdDay = simpleForecast.get(3);
 
             // Set Today's Conditions
             mTempText.setText(rightNow.getTemp().getEnglish() + "\u00B0");
             mConditionText.setText(rightNow.getCondition());
             mFeelsLikeText.setText("Feels like " + rightNow.getFeelslike().getEnglish() + "\u00B0");
             mPrecipChanceText.setText(rightNow.getPop() + "%");
-            mHighLowText.setText(today.getHigh().getFahrenheit() + "\u00B0 - " + today.getLow().getFahrenheit() + "\u00B0");
+            mHighLowText.setText(today.getHigh().getFahrenheit() + "\u00B0/" + today.getLow().getFahrenheit() + "\u00B0");
             mWindText.setText(today.getAvewind().getMph() + "mph");
 
             // Set Tomorrows Conditions
-            mTomImage.setBackground(getConditionIcon(tomorrow.getIcon()));
+            mTomImage.setBackground(helper.getConditionIcon(tomorrow.getIcon()));
             mTomText.setText(tomorrow.getDate().getWeekday());
             mTomHigh.setText(tomorrow.getHigh().getFahrenheit() + "\u00B0");
             mTomLow.setText(tomorrow.getLow().getFahrenheit() + "\u00B0");
 
             // Set Day After Tomorrow Conditions
-            mDayAfterImage.setBackground(getConditionIcon(dayAfter.getIcon()));
+            mDayAfterImage.setBackground(helper.getConditionIcon(dayAfter.getIcon()));
             mDayAfterText.setText(dayAfter.getDate().getWeekday());
             mDayAfterHigh.setText(dayAfter.getHigh().getFahrenheit() + "\u00B0");
             mDayAfterLow.setText(dayAfter.getLow().getFahrenheit() + "\u00B0");
 
             // Set Third Day Conditions
-            mThirdDayImage.setBackground(getConditionIcon(thirdDay.getIcon()));
+            mThirdDayImage.setBackground(helper.getConditionIcon(thirdDay.getIcon()));
             mThirdDayText.setText(thirdDay.getDate().getWeekday());
             mThirdDayHigh.setText(thirdDay.getHigh().getFahrenheit() + "\u00B0");
             mThirdDayLow.setText(thirdDay.getLow().getFahrenheit() + "\u00B0");
@@ -321,39 +336,27 @@ public class WeatherActivity extends AppCompatActivity {
                 mForecastText.setText(txtForecast.get(1).getFcttext());
             }
         }
+    }
+    //
+    // Ten Day Forecast Fragment
+    //
+    public static class TenDayFragment extends Fragment {
 
-        private Drawable getConditionIcon(String condition) {
-            Drawable icon;
-            switch(condition) {
-                case "chancerain":
-                    icon = ResourcesCompat.getDrawable(getResources(), R.drawable.icon_chance_rain, null);
-                    break;
-                case "chancetstorms":
-                    icon = ResourcesCompat.getDrawable(getResources(), R.drawable.icon_chance_tstorms, null);
-                    break;
-                case "clear":case"sunny":
-                    icon = ResourcesCompat.getDrawable(getResources(), R.drawable.icon_clear_day, null);
-                    break;
-                case"cloudy":case"fog":
-                    icon = ResourcesCompat.getDrawable(getResources(), R.drawable.icon_cloudy, null);
-                    break;
-                case"mostlycloudy":case"partlysunny":
-                    icon = ResourcesCompat.getDrawable(getResources(), R.drawable.icon_mostly_cloudy_day, null);
-                    break;
-                case"mostlysunny":case"partlycloudy":
-                    icon = ResourcesCompat.getDrawable(getResources(), R.drawable.icon_mostly_sunny_day, null);
-                    break;
-                case"rain":
-                    icon = ResourcesCompat.getDrawable(getResources(), R.drawable.icon_rain_day, null);
-                    break;
-                case"tstorms":
-                    icon = ResourcesCompat.getDrawable(getResources(), R.drawable.icon_tstorms, null);
-                    break;
-                default:
-                    icon = ResourcesCompat.getDrawable(getResources(), R.drawable.icon_clear_day, null);
-                    break;
-            }
-            return icon;
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_weather_tenday, container, false);
+
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.tendayRecycler);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+           // ListMarginDecoration decoration = new ListMarginDecoration(20);
+           // recyclerView.addItemDecoration(decoration);
+
+            adapter = new TenDayRecyclerAdapter(getActivity(), simpleForecast);
+            recyclerView.setAdapter(adapter);
+
+
+            return view;
         }
     }
 }

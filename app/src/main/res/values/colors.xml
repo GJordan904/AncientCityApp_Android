@@ -6,5 +6,6 @@
     <color name="my_dark">#2A3D45</color>
     <color name="my_earth">#BCAC9B</color>
     <color name="my_brown">#7A6C5D</color>
-    <color name="my_transparentBlack">#82000000</color>
+    <color name="my_transparent_black">#82000000</color>
+    <color name="my_transparent_grey">#af9b9b9b</color>
 </resources>
